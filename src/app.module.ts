@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ParticipantsModule } from './participants/participants.module';
+import { TeamsModule } from './teams/teams.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ParticipantsModule } from './participants/participants.module';
       autoLoadEntities: true, // modificar para produccion
       synchronize: true}),
     ParticipantsModule,
+    TeamsModule,
   
   ],
   controllers: [AppController],

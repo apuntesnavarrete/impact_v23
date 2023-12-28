@@ -3,6 +3,6 @@ export declare class Participants {
     name: string;
     birthDate?: string;
     Curp?: string;
-    Foto?: string;
-    Correo?: string;
+    Photo?: string;
+    Email?: string;
 }

@@ -35,7 +35,7 @@ export class Participants {
 
   })
   @IsOptional()
-  Foto?: string;
+  Photo?: string;
 
   @Column({
     length: 100,
@@ -44,5 +44,7 @@ export class Participants {
   })
   @IsOptional()
   @IsEmail()
-  Correo?: string;
+  Email?: string;
+
+  //corregir nombre de español a ingles
 }

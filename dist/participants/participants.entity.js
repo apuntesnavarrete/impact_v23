@@ -51,7 +51,7 @@ __decorate([
     }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], Participants.prototype, "Foto", void 0);
+], Participants.prototype, "Photo", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         length: 100,
@@ -60,7 +60,7 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], Participants.prototype, "Correo", void 0);
+], Participants.prototype, "Email", void 0);
 exports.Participants = Participants = __decorate([
     (0, typeorm_1.Entity)()
 ], Participants);
