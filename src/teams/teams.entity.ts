@@ -1,6 +1,6 @@
 import { IsEmpty } from "class-validator";
 import { Participants } from "src/participants/participants.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
 @Entity()
@@ -26,6 +26,12 @@ export class Teams{
       })
       @IsEmpty()
       logo: string;
+
+      @CreateDateColumn()
+      createdAt: Date;
+    
+      @UpdateDateColumn()
+      updatedAt: Date;
 
 }
 //cambiar nombre de columna a founder

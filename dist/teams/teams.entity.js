@@ -38,6 +38,14 @@ __decorate([
     (0, class_validator_1.IsEmpty)(),
     __metadata("design:type", String)
 ], Teams.prototype, "logo", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Teams.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Date)
+], Teams.prototype, "updatedAt", void 0);
 exports.Teams = Teams = __decorate([
     (0, typeorm_1.Entity)()
 ], Teams);

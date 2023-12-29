@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { IsDateString, IsEmail, IsNotEmpty, IsOptional, Length, Matches } from 'class-validator';
 
 @Entity()
@@ -46,5 +46,12 @@ export class Participants {
   @IsEmail()
   Email?: string;
 
-  //corregir nombre de español a ingles
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+//Agregando campos Timestamp
+
 }

@@ -61,6 +61,14 @@ __decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
 ], Participants.prototype, "Email", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Participants.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Date)
+], Participants.prototype, "updatedAt", void 0);
 exports.Participants = Participants = __decorate([
     (0, typeorm_1.Entity)()
 ], Participants);

@@ -4,4 +4,6 @@ export declare class Teams {
     name: string;
     participants: Participants;
     logo: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
