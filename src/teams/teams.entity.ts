@@ -25,7 +25,7 @@ export class Teams{
         length: 100,
       })
       @IsEmpty()
-      logo: string;
+      logo: string; //  *** debe ser opcional cambiar **
 
       @CreateDateColumn()
       createdAt: Date;
