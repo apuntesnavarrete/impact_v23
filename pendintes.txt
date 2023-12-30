@@ -1,0 +1,14 @@
+// agregar mensajes de error en caso de que el usuario mande un tipo de dato distinto(volver a revisar)
+// agregar codigos de estado. (volver a revisar)
+// Autenticazion y autorizacion
+// Evitar invecciones sql
+// documentar la api.
+//Paginacion y permitir filtrado
+// tecnicas de cache
+//Manejo de Transacciones
+//hacer testing
+
+----
+logging
+versionamiento
+monitorizacion para revisar el rendimiento de la api

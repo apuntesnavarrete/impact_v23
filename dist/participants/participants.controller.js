@@ -19,28 +19,48 @@ let ParticipantsController = class ParticipantsController {
     constructor(participantSevice) {
         this.participantSevice = participantSevice;
     }
-    allParticipant() {
-        return this.participantSevice.all();
+    async allParticipant() {
+        try {
+            return this.participantSevice.all();
+        }
+        catch (error) {
+            console.error(error);
+            throw new common_1.InternalServerErrorException('Error al obtener Jugadores');
+        }
     }
     async createParticipant(participantData) {
         return this.participantSevice.create(participantData);
     }
     async getParticipant(id) {
+        if (isNaN(id)) {
+            throw new common_1.HttpException('El ID proporcionado no es un número válido.', common_1.HttpStatus.BAD_REQUEST);
+        }
         return this.participantSevice.get(id);
     }
     async updateParticipant(id, data) {
-        return this.participantSevice.update(id, data);
+        if (isNaN(id)) {
+            throw new common_1.HttpException('El ID proporcionado no es un número válido.', common_1.HttpStatus.BAD_REQUEST);
+        }
+        const updatedParticipant = await this.participantSevice.update(id, data);
+        if (updatedParticipant.affected === 0) {
+            throw new common_1.NotFoundException(`No fields updated for participant with id ${id} , check you put a valid id`);
+        }
+        return updatedParticipant;
     }
     async deleteParticipant(id) {
+        if (isNaN(id)) {
+            throw new common_1.HttpException('El ID proporcionado no es un número válido.', common_1.HttpStatus.BAD_REQUEST);
+        }
         return this.participantSevice.delete(id);
     }
 };
 exports.ParticipantsController = ParticipantsController;
 __decorate([
     (0, common_1.Get)(),
+    (0, common_1.HttpCode)(204),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ParticipantsController.prototype, "allParticipant", null);
 __decorate([
     (0, common_1.Post)(),
@@ -66,6 +86,7 @@ __decorate([
 ], ParticipantsController.prototype, "updateParticipant", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, common_1.HttpCode)(204),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),

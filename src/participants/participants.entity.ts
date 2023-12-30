@@ -46,12 +46,14 @@ export class Participants {
   @IsEmail()
   Email?: string;
 
+  //Agregando campos Timestamp
+
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
 
-//Agregando campos Timestamp
 
 }
+

@@ -27,6 +27,18 @@ let TeamsService = class TeamsService {
         });
         return teams;
     }
+    async teamById(id, data) {
+        return this.TeamsRepository.update(id, data);
+    }
+    async get(id) {
+        return this.TeamsRepository.findBy({ id: id });
+    }
+    async create(data) {
+        return this.TeamsRepository.save(data);
+    }
+    async delete(id) {
+        return this.TeamsRepository.delete(id);
+    }
 };
 exports.TeamsService = TeamsService;
 exports.TeamsService = TeamsService = __decorate([

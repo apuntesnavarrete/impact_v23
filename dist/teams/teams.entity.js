@@ -34,6 +34,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         length: 100,
+        nullable: true
     }),
     (0, class_validator_1.IsEmpty)(),
     __metadata("design:type", String)

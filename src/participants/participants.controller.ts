@@ -1,6 +1,7 @@
-import {  Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {  Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, InternalServerErrorException, NotFoundException, Param, Post, Put } from '@nestjs/common';
 import { ParticipantsService } from './participants.service';
 import { Participants } from './participants.entity';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
 @Controller('participants')
 export class ParticipantsController {
@@ -10,8 +11,19 @@ export class ParticipantsController {
     }
 //Obtener todos los participantes 
     @Get()
-    allParticipant(){
-        return  this.participantSevice.all();
+    @HttpCode(204)
+
+  async allParticipant(){
+
+    try{
+      return  this.participantSevice.all();
+
+    }
+    catch(error){
+      console.error(error);
+      throw new InternalServerErrorException('Error al obtener Jugadores');
+    }
+
     }
 
 //crear un nuevo participante
@@ -23,19 +35,44 @@ async createParticipant(@Body() participantData: Partial<Participants>): Promise
 
  @Get(':id')
  async getParticipant(@Param('id') id:number){
+
+  if (isNaN(id)) {
+    // Lanza una excepción BadRequest si 'id' no es un número válido
+    throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);
+  }
+
     return this.participantSevice.get(id);
 
  }
 //actualizar un participante
 
  @Put(':id')
- async updateParticipant(@Param('id') id: number, @Body() data: any): Promise<any> {
-   return this.participantSevice.update(id, data);
+ async updateParticipant(@Param('id') id: number, @Body() data: Partial<Participants>): Promise<UpdateResult> {
+//  const updatedParticipant = this.participantSevice.update(id, data);
+if (isNaN(id)) {
+  // Lanza una excepción BadRequest si 'id' no es un número válido
+  throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);
+} 
+
+const updatedParticipant = await this.participantSevice.update(id, data);
+
+  if (updatedParticipant.affected === 0) {
+    // Si no se actualiza ningún campo, puedes manejarlo según tus necesidades.
+    throw new NotFoundException
+    (`No fields updated for participant with id ${id} , check you put a valid id`);
+  }
+
+  return updatedParticipant
  }
 //eliminar un participante
 
  @Delete(':id')
- async deleteParticipant(@Param('id') id: number): Promise<number> {
+ @HttpCode(204)
+ async deleteParticipant(@Param('id') id: number): Promise<DeleteResult> {
+  if (isNaN(id)) {
+    // Lanza una excepción BadRequest si 'id' no es un número válido
+    throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);
+  }
    return this.participantSevice.delete(id);
  }
 
