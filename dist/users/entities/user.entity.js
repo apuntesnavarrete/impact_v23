@@ -9,46 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Teams = void 0;
-const class_validator_1 = require("class-validator");
-const participants_entity_1 = require("../participants/participants.entity");
+exports.User = void 0;
 const typeorm_1 = require("typeorm");
-let Teams = class Teams {
+const typeorm_2 = require("typeorm");
+let User = class User {
 };
-exports.Teams = Teams;
+exports.User = User;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, typeorm_2.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Teams.prototype, "id", void 0);
+], User.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({
-        length: 255,
-    }),
-    (0, class_validator_1.IsEmpty)(),
+    (0, typeorm_2.Column)(),
     __metadata("design:type", String)
-], Teams.prototype, "name", void 0);
+], User.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => participants_entity_1.Participants, participants => participants.id),
-    __metadata("design:type", participants_entity_1.Participants)
-], Teams.prototype, "participants", void 0);
-__decorate([
-    (0, typeorm_1.Column)({
-        length: 100,
-        nullable: true,
-        default: 'default_equipo.jpg'
-    }),
-    (0, class_validator_1.IsEmpty)(),
+    (0, typeorm_2.Column)({ unique: true, nullable: false }),
     __metadata("design:type", String)
-], Teams.prototype, "logo", void 0);
+], User.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)(),
-    __metadata("design:type", Date)
-], Teams.prototype, "createdAt", void 0);
+    (0, typeorm_2.Column)({ nullable: false, select: false }),
+    __metadata("design:type", String)
+], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)(),
+    (0, typeorm_2.Column)({ default: 'user' }),
+    __metadata("design:type", String)
+], User.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_2.DeleteDateColumn)(),
     __metadata("design:type", Date)
-], Teams.prototype, "updatedAt", void 0);
-exports.Teams = Teams = __decorate([
+], User.prototype, "deletedAt", void 0);
+exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
-], Teams);
-//# sourceMappingURL=teams.entity.js.map
+], User);
+//# sourceMappingURL=user.entity.js.map

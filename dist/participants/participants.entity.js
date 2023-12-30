@@ -47,7 +47,8 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         length: 100,
-        nullable: true
+        nullable: true,
+        default: 'default_jugador.jpg'
     }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
@@ -55,7 +56,8 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         length: 100,
-        nullable: true
+        nullable: true,
+        unique: true
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEmail)(),

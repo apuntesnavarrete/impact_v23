@@ -31,7 +31,8 @@ export class Participants {
 
   @Column({
     length: 100,
-    nullable:true
+    nullable:true,
+    default: 'default_jugador.jpg'
 
   })
   @IsOptional()
@@ -39,8 +40,8 @@ export class Participants {
 
   @Column({
     length: 100,
-    nullable:true
-
+    nullable:true,
+    unique:true
   })
   @IsOptional()
   @IsEmail()

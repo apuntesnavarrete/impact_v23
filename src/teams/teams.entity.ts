@@ -23,8 +23,8 @@ export class Teams{
 
       @Column({
         length: 100,
-       nullable: true
-
+       nullable: true,
+        default: 'default_equipo.jpg'
       })
       @IsEmpty()
 

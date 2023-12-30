@@ -6,22 +6,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TeamsModule = void 0;
+exports.UsersModule = void 0;
 const common_1 = require("@nestjs/common");
-const teams_controller_1 = require("./teams.controller");
-const teams_service_1 = require("./teams.service");
+const users_service_1 = require("./users.service");
+const users_controller_1 = require("./users.controller");
 const typeorm_1 = require("@nestjs/typeorm");
-const teams_entity_1 = require("./teams.entity");
-let TeamsModule = class TeamsModule {
+const user_entity_1 = require("./entities/user.entity");
+let UsersModule = class UsersModule {
 };
-exports.TeamsModule = TeamsModule;
-exports.TeamsModule = TeamsModule = __decorate([
+exports.UsersModule = UsersModule;
+exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([teams_entity_1.Teams])
+            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User])
         ],
-        controllers: [teams_controller_1.TeamsController],
-        providers: [teams_service_1.TeamsService],
+        controllers: [users_controller_1.UsersController],
+        providers: [users_service_1.UsersService],
+        exports: [users_service_1.UsersService]
     })
-], TeamsModule);
-//# sourceMappingURL=teams.module.js.map
+], UsersModule);
+//# sourceMappingURL=users.module.js.map
