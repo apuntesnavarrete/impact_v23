@@ -17,8 +17,9 @@ export class UsersService {
     return this.userRepository.save(createUserDto)
   }
 
-  findOnebyEmail(email: string){
-    return this.userRepository.findOneBy({ email })
+ async findOnebyEmail(email: string){
+    return await this.userRepository.findOne({ where: { email }, select: ['password' , 'name' , 'id' , 'role'] })
+
   }
  
 }

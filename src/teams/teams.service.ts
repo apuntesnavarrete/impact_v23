@@ -16,7 +16,7 @@ export class TeamsService {
     });
     return teams;
   }
-
+//corregir nombre
   async teamById(id : number, data : Partial<Teams> ) : Promise<UpdateResult> {
     return this.TeamsRepository.update(id , data)
   }

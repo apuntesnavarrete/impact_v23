@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, InternalServerErrorException, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, InternalServerErrorException, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { TeamsService } from './teams.service';
 import { Participants } from 'src/participants/participants.entity';
 import { Teams } from './teams.entity';
@@ -25,7 +25,7 @@ async allTeams(): Promise<Participants[]>{
 }
 
 @Get(':id')
-async findTeamById(@Param('id') id : number): Promise<Teams[]>{
+async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Teams[]>{
     if (isNaN(id)) {
         // Lanza una excepción BadRequest si 'id' no es un número válido
         throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);

@@ -24,8 +24,8 @@ let UsersService = class UsersService {
     create(createUserDto) {
         return this.userRepository.save(createUserDto);
     }
-    findOnebyEmail(email) {
-        return this.userRepository.findOneBy({ email });
+    async findOnebyEmail(email) {
+        return await this.userRepository.findOne({ where: { email }, select: ['password', 'name', 'id', 'role'] });
     }
 };
 exports.UsersService = UsersService;
