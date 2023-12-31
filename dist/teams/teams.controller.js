@@ -13,8 +13,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TeamsController = void 0;
+const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const teams_service_1 = require("./teams.service");
+const swagger_1 = require("@nestjs/swagger");
 let TeamsController = class TeamsController {
     constructor(teamService) {
         this.teamService = teamService;
@@ -54,12 +56,14 @@ exports.TeamsController = TeamsController;
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.HttpCode)(204),
+    openapi.ApiResponse({ status: 204, type: [require("../participants/participants.entity").Participants] }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "allTeams", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    openapi.ApiResponse({ status: 200, type: [require("./teams.entity").Teams] }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
@@ -67,6 +71,7 @@ __decorate([
 ], TeamsController.prototype, "findTeamById", null);
 __decorate([
     (0, common_1.Post)(),
+    openapi.ApiResponse({ status: 201, type: require("./teams.entity").Teams }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -74,6 +79,7 @@ __decorate([
 ], TeamsController.prototype, "create", null);
 __decorate([
     (0, common_1.Put)(':id'),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -83,12 +89,14 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, common_1.HttpCode)(204),
+    openapi.ApiResponse({ status: 204 }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "delete", null);
 exports.TeamsController = TeamsController = __decorate([
+    (0, swagger_1.ApiTags)('teams'),
     (0, common_1.Controller)('teams'),
     __metadata("design:paramtypes", [teams_service_1.TeamsService])
 ], TeamsController);

@@ -2,7 +2,9 @@ import {  Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, In
 import { ParticipantsService } from './participants.service';
 import { Participants } from './participants.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('participants')
 @Controller('participants')
 export class ParticipantsController {
 

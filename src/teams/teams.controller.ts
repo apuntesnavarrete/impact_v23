@@ -3,7 +3,9 @@ import { TeamsService } from './teams.service';
 import { Participants } from 'src/participants/participants.entity';
 import { Teams } from './teams.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('teams')
 @Controller('teams')
 export class TeamsController {
     constructor(private teamService : TeamsService){
