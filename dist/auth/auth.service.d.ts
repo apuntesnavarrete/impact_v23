@@ -6,7 +6,10 @@ export declare class AuthService {
     private readonly userService;
     private readonly jwtService;
     constructor(userService: UsersService, jwtService: JwtService);
-    register({ name, email, password }: RegisterDto): Promise<import("../users/dto/create-user.dto").CreateUserDto & import("../users/entities/user.entity").User>;
+    register({ name, email, password }: RegisterDto): Promise<{
+        name: string;
+        email: string;
+    }>;
     login({ email, password }: LoginDto): Promise<{
         token: string;
         email: string;

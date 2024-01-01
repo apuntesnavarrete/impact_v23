@@ -24,11 +24,14 @@ let AuthService = class AuthService {
         if (user) {
             throw new common_1.BadRequestException('User already exist');
         }
-        return await this.userService.create({
+        await this.userService.create({
             name,
             password: await bcryptjs.hash(password, 10),
             email
         });
+        return {
+            name, email
+        };
     }
     async login({ email, password }) {
         const user = await this.userService.findOnebyEmail(email);
@@ -39,7 +42,8 @@ let AuthService = class AuthService {
         if (!isPassworrdValid) {
             throw new common_1.UnauthorizedException('pasword is wrong');
         }
-        const payload = { email: user.email };
+        console.log(user.email);
+        const payload = { email: user.email, role: user.role };
         const token = await this.jwtService.signAsync(payload);
         return {
             token,

@@ -21,14 +21,15 @@ export class AuthService {
     if(user){
         throw new BadRequestException('User already exist')
     }
-
-
+        await this.userService.create({
+        name,
+         password: await bcryptjs.hash(password,10), 
+         email})
 
    
-        return  await this.userService.create({
-            name,
-             password: await bcryptjs.hash(password,10), 
-             email})
+        return {
+            name , email
+        }
     }
 
     async login({ email, password}:LoginDto){
@@ -45,7 +46,8 @@ export class AuthService {
             throw new UnauthorizedException('pasword is wrong')
         }
 
-        const payload = { email: user.email }
+        console.log(user.email)
+        const payload = { email: user.email, role: user.role }
         const token = await this.jwtService.signAsync(payload)
 
         return {

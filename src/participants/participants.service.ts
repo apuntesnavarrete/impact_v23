@@ -36,8 +36,6 @@ async update(id:number, data: Partial<Participants>):Promise<UpdateResult>{
     return this.participantRepository.delete(id)
   }
 
-   //modificar todos lo promise any
-
 }
 
 //que me regrese en la actualizacion el id modificado.
