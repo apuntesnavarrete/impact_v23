@@ -1,17 +1,21 @@
-import { Body, Controller, Post,Get,Request, Req } from '@nestjs/common';
+import { Body, Controller, Post,Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { Role } from './role.enum';
+import { Role } from '../common/role.enum';
 import { Auth } from './decorators/auth.decorators';
+import { ActiveUser } from 'src/common/decorators/active-user.decorator';
+import { UserActiveInterface } from 'src/common/interfaces/user-active.interface';
 
 //moverlo a su propia carpeta
+/*
 interface RequestWithUser extends Request{
     user : { email: string, role : string } 
 }
-
+*/
 @ApiTags('auth')
+@Auth(Role.ADMIN)
 @Controller('auth')
 export class AuthController {
 
@@ -38,12 +42,12 @@ constructor(
     }
 
     @Get('profile')
-    @Auth(Role.USER)
 
     profile(
-        @Req() req: RequestWithUser
-
+       @ActiveUser() user : UserActiveInterface
     ){
-        return req.user
+        console.log(user )
+
+        return user
     }
 }

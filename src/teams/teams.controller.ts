@@ -4,8 +4,12 @@ import { Participants } from 'src/participants/participants.entity';
 import { Teams } from './teams.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorators';
+import { Role } from 'src/common/role.enum';
+
 
 @ApiTags('teams')
+@Auth(Role.ADMIN)
 @Controller('teams')
 export class TeamsController {
     constructor(private teamService : TeamsService){

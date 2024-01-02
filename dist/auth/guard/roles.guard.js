@@ -13,6 +13,7 @@ exports.RolesGuardTsGuard = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const roles_decorator_1 = require("../decorators/roles.decorator");
+const role_enum_1 = require("../../common/role.enum");
 let RolesGuardTsGuard = class RolesGuardTsGuard {
     constructor(reflector) {
         this.reflector = reflector;
@@ -26,6 +27,9 @@ let RolesGuardTsGuard = class RolesGuardTsGuard {
             return true;
         }
         const { user } = context.switchToHttp().getRequest();
+        if (user.role === role_enum_1.Role.ADMIN) {
+            return true;
+        }
         return user.role === requiredRoles;
     }
 };

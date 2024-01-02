@@ -6,7 +6,7 @@ export declare class AuthService {
     private readonly userService;
     private readonly jwtService;
     constructor(userService: UsersService, jwtService: JwtService);
-    register({ name, email, password }: RegisterDto): Promise<{
+    register({ name, email, password, role }: RegisterDto): Promise<{
         name: string;
         email: string;
     }>;

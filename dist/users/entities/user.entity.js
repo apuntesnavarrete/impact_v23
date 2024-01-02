@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const openapi = require("@nestjs/swagger");
+const role_enum_1 = require("../../common/role.enum");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("typeorm");
 let User = class User {
@@ -36,7 +37,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_2.Column)({ default: 'user' }),
+    (0, typeorm_2.Column)({ type: 'enum', default: role_enum_1.Role.USER, enum: role_enum_1.Role }),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
 __decorate([

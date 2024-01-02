@@ -19,8 +19,9 @@ const auth_service_1 = require("./auth.service");
 const register_dto_1 = require("./dto/register.dto");
 const login_dto_1 = require("./dto/login.dto");
 const swagger_1 = require("@nestjs/swagger");
-const role_enum_1 = require("./role.enum");
+const role_enum_1 = require("../common/role.enum");
 const auth_decorators_1 = require("./decorators/auth.decorators");
+const active_user_decorator_1 = require("../common/decorators/active-user.decorator");
 let AuthController = class AuthController {
     constructor(authSservice) {
         this.authSservice = authSservice;
@@ -31,8 +32,9 @@ let AuthController = class AuthController {
     login(loguinDto) {
         return this.authSservice.login(loguinDto);
     }
-    profile(req) {
-        return req.user;
+    profile(user) {
+        console.log(user);
+        return user;
     }
 };
 exports.AuthController = AuthController;
@@ -54,15 +56,15 @@ __decorate([
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.Get)('profile'),
-    (0, auth_decorators_1.Auth)(role_enum_1.Role.USER),
-    openapi.ApiResponse({ status: 200 }),
-    __param(0, (0, common_1.Req)()),
+    openapi.ApiResponse({ status: 200, type: Object }),
+    __param(0, (0, active_user_decorator_1.ActiveUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "profile", null);
 exports.AuthController = AuthController = __decorate([
     (0, swagger_1.ApiTags)('auth'),
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);

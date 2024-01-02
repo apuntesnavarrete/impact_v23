@@ -15,7 +15,7 @@ const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class RegisterDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String, minLength: 1 }, email: { required: true, type: () => String }, password: { required: true, type: () => String, minLength: 6 } };
+        return { name: { required: true, type: () => String, minLength: 1 }, email: { required: true, type: () => String }, role: { required: true, type: () => String }, password: { required: true, type: () => String, minLength: 6 } };
     }
 }
 exports.RegisterDto = RegisterDto;
@@ -29,6 +29,10 @@ __decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
 ], RegisterDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], RegisterDto.prototype, "role", void 0);
 __decorate([
     (0, class_transformer_1.Transform)(({ value }) => value.trim()),
     (0, class_validator_1.IsString)(),

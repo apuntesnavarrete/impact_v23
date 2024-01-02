@@ -19,7 +19,7 @@ let AuthService = class AuthService {
         this.userService = userService;
         this.jwtService = jwtService;
     }
-    async register({ name, email, password }) {
+    async register({ name, email, password, role }) {
         const user = await this.userService.findOnebyEmail(email);
         if (user) {
             throw new common_1.BadRequestException('User already exist');
@@ -27,7 +27,8 @@ let AuthService = class AuthService {
         await this.userService.create({
             name,
             password: await bcryptjs.hash(password, 10),
-            email
+            email,
+            role
         });
         return {
             name, email

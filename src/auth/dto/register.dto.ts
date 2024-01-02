@@ -10,6 +10,10 @@ export class RegisterDto{
     @IsEmail()
     email: string;
   
+    //pasarle enum
+    @IsString()
+    role: string;
+
     @Transform(({ value }) => value.trim())
     @IsString()
     @MinLength(6)

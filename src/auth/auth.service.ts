@@ -14,7 +14,7 @@ export class AuthService {
 
     ){}
 
-   async register({name , email, password}: RegisterDto){
+   async register({name , email, password, role}: RegisterDto){
 
     const user =  await this.userService.findOnebyEmail(email);
 
@@ -24,7 +24,9 @@ export class AuthService {
         await this.userService.create({
         name,
          password: await bcryptjs.hash(password,10), 
-         email})
+         email,
+         role 
+        })
 
    
         return {

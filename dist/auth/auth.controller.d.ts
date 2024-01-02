@@ -1,12 +1,7 @@
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-interface RequestWithUser extends Request {
-    user: {
-        email: string;
-        role: string;
-    };
-}
+import { UserActiveInterface } from 'src/common/interfaces/user-active.interface';
 export declare class AuthController {
     private readonly authSservice;
     constructor(authSservice: AuthService);
@@ -18,9 +13,5 @@ export declare class AuthController {
         token: string;
         email: string;
     }>;
-    profile(req: RequestWithUser): {
-        email: string;
-        role: string;
-    };
+    profile(user: UserActiveInterface): UserActiveInterface;
 }
-export {};
