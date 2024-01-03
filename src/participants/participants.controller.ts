@@ -4,7 +4,6 @@ import { Participants } from './participants.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { ApiTags } from '@nestjs/swagger';
 import { Auth } from 'src/auth/decorators/auth.decorators';
-import { User } from 'src/users/entities/user.entity';
 import { Role } from 'src/common/role.enum';
 
 @ApiTags('participants')

@@ -17,8 +17,8 @@ const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const teams_service_1 = require("./teams.service");
 const swagger_1 = require("@nestjs/swagger");
-const auth_decorators_1 = require("../auth/decorators/auth.decorators");
-const role_enum_1 = require("../common/role.enum");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
 let TeamsController = class TeamsController {
     constructor(teamService) {
         this.teamService = teamService;
@@ -53,12 +53,17 @@ let TeamsController = class TeamsController {
         }
         return this.teamService.delete(id);
     }
+    prueba() {
+        return "ruta de prueba";
+    }
+    async uploadFile(file) {
+        console.log(file);
+    }
 };
 exports.TeamsController = TeamsController;
 __decorate([
     (0, common_1.Get)(),
-    (0, common_1.HttpCode)(204),
-    openapi.ApiResponse({ status: 204, type: [require("../participants/participants.entity").Participants] }),
+    openapi.ApiResponse({ status: 200, type: [require("../participants/participants.entity").Participants] }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -97,9 +102,29 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Get)('upload'),
+    openapi.ApiResponse({ status: 200, type: String }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], TeamsController.prototype, "prueba", null);
+__decorate([
+    (0, common_1.Post)('upload'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
+        storage: (0, multer_1.diskStorage)({
+            destination: './upload',
+            filename: (_, file) => file.originalname,
+        })
+    })),
+    openapi.ApiResponse({ status: 201 }),
+    __param(0, (0, common_1.UploadedFile)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TeamsController.prototype, "uploadFile", null);
 exports.TeamsController = TeamsController = __decorate([
     (0, swagger_1.ApiTags)('teams'),
-    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Controller)('teams'),
     __metadata("design:paramtypes", [teams_service_1.TeamsService])
 ], TeamsController);

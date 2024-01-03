@@ -1,15 +1,18 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, InternalServerErrorException, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, InternalServerErrorException, Param, ParseIntPipe, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { TeamsService } from './teams.service';
 import { Participants } from 'src/participants/participants.entity';
 import { Teams } from './teams.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { ApiTags } from '@nestjs/swagger';
-import { Auth } from 'src/auth/decorators/auth.decorators';
-import { Role } from 'src/common/role.enum';
+//import { Auth } from 'src/auth/decorators/auth.decorators';
+//import { Role } from 'src/common/role.enum';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+
 
 
 @ApiTags('teams')
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
 @Controller('teams')
 export class TeamsController {
     constructor(private teamService : TeamsService){
@@ -17,7 +20,6 @@ export class TeamsController {
 
 //obtener todos los equipos
 @Get()
-@HttpCode(204)
 async allTeams(): Promise<Participants[]>{
 
     try {
@@ -64,5 +66,31 @@ async delete(@Param('id') id :number) : Promise<DeleteResult>{
 }
 
  //modificar todos lo promise any
+ @Get('upload')
+prueba(){
+    return "ruta de prueba"
+}
+
+
+//
+
+
+
+ @Post('upload')
+@UseInterceptors(FileInterceptor('file' , {
+
+    storage: diskStorage(
+        {
+            destination: './upload',
+            filename: (_, file) => file.originalname,
+        }
+    )
+
+} ))
+async uploadFile(@UploadedFile() file: Express.Multer.File) {
+  console.log(file); //logica despues de que se haya subido el archivo
+}
+
+//
 
 }

@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { TeamsService } from './teams.service';
 import { Participants } from 'src/participants/participants.entity';
 import { Teams } from './teams.entity';
@@ -10,4 +11,6 @@ export declare class TeamsController {
     create(teamsData: Partial<Teams>): Promise<Teams>;
     updateTeam(id: number, teamsData: Partial<Teams>): Promise<UpdateResult>;
     delete(id: number): Promise<DeleteResult>;
+    prueba(): string;
+    uploadFile(file: Express.Multer.File): Promise<void>;
 }

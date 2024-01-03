@@ -6,9 +6,28 @@ import { ParticipantsModule } from './participants/participants.module';
 import { TeamsModule } from './teams/teams.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { CacheModule } from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-redis-yet';
+
+
+
 
 @Module({
-  imports: [
+  imports:[
+    CacheModule.registerAsync({
+      isGlobal: true,
+      useFactory: async () => ({
+        store: await redisStore({
+          socket: {
+            host: 'localhost',
+            port: 6379,
+          },
+        }),
+      }),
+ 
+
+    
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -22,8 +41,10 @@ import { AuthModule } from './auth/auth.module';
     TeamsModule,
     UsersModule,
     AuthModule,
+     // Agrega esta línea para configurar el módulo de caché
+
   
-  ],
+  ], 
   controllers: [AppController],
   providers: [AppService],
 })

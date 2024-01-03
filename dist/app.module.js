@@ -15,12 +15,25 @@ const participants_module_1 = require("./participants/participants.module");
 const teams_module_1 = require("./teams/teams.module");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
+const cache_manager_1 = require("@nestjs/cache-manager");
+const cache_manager_redis_yet_1 = require("cache-manager-redis-yet");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            cache_manager_1.CacheModule.registerAsync({
+                isGlobal: true,
+                useFactory: async () => ({
+                    store: await (0, cache_manager_redis_yet_1.redisStore)({
+                        socket: {
+                            host: 'localhost',
+                            port: 6379,
+                        },
+                    }),
+                }),
+            }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
                 host: 'localhost',

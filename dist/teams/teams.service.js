@@ -17,14 +17,26 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const teams_entity_1 = require("./teams.entity");
 const typeorm_2 = require("typeorm");
+const cache_manager_1 = require("@nestjs/cache-manager");
 let TeamsService = class TeamsService {
-    constructor(TeamsRepository) {
+    constructor(TeamsRepository, cacheManager) {
         this.TeamsRepository = TeamsRepository;
+        this.cacheManager = cacheManager;
     }
     async all() {
-        const teams = await this.TeamsRepository.find({
-            relations: ['participants'],
-        });
+        const key = 'teams-find-all';
+        let teams = await this.cacheManager.get(key);
+        if (!teams) {
+            console.log('Data not found in cache. Fetching from source.');
+            teams = await this.TeamsRepository.find({
+                relations: ['participants'],
+            });
+            await this.cacheManager.set(key, teams, 6000 * 10);
+            console.log('Storing data in cache.');
+        }
+        else {
+            console.log('Returning cached data.');
+        }
         return teams;
     }
     async teamById(id, data) {
@@ -44,6 +56,7 @@ exports.TeamsService = TeamsService;
 exports.TeamsService = TeamsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(teams_entity_1.Teams)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, common_1.Inject)(cache_manager_1.CACHE_MANAGER)),
+    __metadata("design:paramtypes", [typeorm_2.Repository, Object])
 ], TeamsService);
 //# sourceMappingURL=teams.service.js.map
