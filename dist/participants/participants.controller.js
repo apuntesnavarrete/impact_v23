@@ -71,7 +71,7 @@ __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
         storage: (0, multer_1.diskStorage)({
-            destination: './upload/players',
+            destination: 'public/participants',
             filename: (_, file, callback) => {
                 callback(null, file.originalname);
             }

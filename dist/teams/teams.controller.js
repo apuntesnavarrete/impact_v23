@@ -57,9 +57,6 @@ let TeamsController = class TeamsController {
     prueba() {
         return "ruta de prueba";
     }
-    async uploadFile(file) {
-        console.log(file.filename);
-    }
 };
 exports.TeamsController = TeamsController;
 __decorate([
@@ -81,7 +78,7 @@ __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
         storage: (0, multer_1.diskStorage)({
-            destination: './upload/teams',
+            destination: 'public/teams',
             filename: (_, file, callback) => {
                 callback(null, file.originalname);
             }
@@ -125,28 +122,6 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], TeamsController.prototype, "prueba", null);
-__decorate([
-    (0, common_1.Post)('upload'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
-        storage: (0, multer_1.diskStorage)({
-            destination: './upload',
-            filename: (_, file, callback) => {
-                callback(null, file.originalname);
-            }
-        }),
-        fileFilter: (req, file, callback) => {
-            if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-                return callback(new Error('invalid format'), false);
-            }
-            callback(null, true);
-        }
-    })),
-    openapi.ApiResponse({ status: 201 }),
-    __param(0, (0, common_1.UploadedFile)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], TeamsController.prototype, "uploadFile", null);
 exports.TeamsController = TeamsController = __decorate([
     (0, swagger_1.ApiTags)('teams'),
     (0, common_1.Controller)('teams'),

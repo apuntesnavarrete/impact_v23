@@ -37,8 +37,8 @@ export class ParticipantsController {
 
   storage: diskStorage(
       {
-          destination: './upload/players',
-          filename: (_, file, callback) => {
+        destination: 'public/participants',
+        filename: (_, file, callback) => {
               callback(null, file.originalname);
             }
       }

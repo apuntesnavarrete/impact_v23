@@ -12,5 +12,4 @@ export declare class TeamsController {
     updateTeam(id: number, teamsData: Partial<Teams>): Promise<UpdateResult>;
     delete(id: number): Promise<DeleteResult>;
     prueba(): string;
-    uploadFile(file: Express.Multer.File): Promise<void>;
 }

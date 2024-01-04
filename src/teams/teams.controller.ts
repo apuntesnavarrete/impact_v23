@@ -46,7 +46,7 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Teams[]>{
 
     storage: diskStorage(
         {
-            destination: './upload/teams',
+            destination: 'public/teams',
             filename: (_, file, callback) => {
                 callback(null, file.originalname);
               }
@@ -104,7 +104,7 @@ prueba(){
 
 //
 
-
+/*
 
  @Post('upload')
 @UseInterceptors(FileInterceptor('file' , {
@@ -129,7 +129,7 @@ prueba(){
 async uploadFile(@UploadedFile() file: Express.Multer.File) {
   console.log(file.filename); //logica despues de que se haya subido el archivo
 }
-
+*/
 //
 
 }

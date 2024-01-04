@@ -8,6 +8,8 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 
 
@@ -28,6 +30,13 @@ import { redisStore } from 'cache-manager-redis-yet';
 
     
     }),
+
+
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      serveRoot: '/public', // // Ruta al directorio de archivos públicos
+    }),
+
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
