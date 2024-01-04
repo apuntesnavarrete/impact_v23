@@ -8,7 +8,7 @@ export declare class TeamsController {
     constructor(teamService: TeamsService);
     allTeams(): Promise<Participants[]>;
     findTeamById(id: number): Promise<Teams[]>;
-    create(teamsData: Partial<Teams>): Promise<Teams>;
+    create(file: Express.Multer.File, teamsData: Partial<Teams>): Promise<Teams>;
     updateTeam(id: number, teamsData: Partial<Teams>): Promise<UpdateResult>;
     delete(id: number): Promise<DeleteResult>;
     prueba(): string;

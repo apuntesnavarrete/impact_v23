@@ -17,8 +17,8 @@ const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const participants_service_1 = require("./participants.service");
 const swagger_1 = require("@nestjs/swagger");
-const auth_decorators_1 = require("../auth/decorators/auth.decorators");
-const role_enum_1 = require("../common/role.enum");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
 let ParticipantsController = class ParticipantsController {
     constructor(participantSevice) {
         this.participantSevice = participantSevice;
@@ -32,7 +32,8 @@ let ParticipantsController = class ParticipantsController {
             throw new common_1.InternalServerErrorException('Error al obtener Jugadores');
         }
     }
-    async createParticipant(participantData) {
+    async createParticipant(file, participantData) {
+        participantData.Photo = file.filename;
         return this.participantSevice.create(participantData);
     }
     async getParticipant(id) {
@@ -68,10 +69,25 @@ __decorate([
 ], ParticipantsController.prototype, "allParticipant", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
+        storage: (0, multer_1.diskStorage)({
+            destination: './upload/players',
+            filename: (_, file, callback) => {
+                callback(null, file.originalname);
+            }
+        }),
+        fileFilter: (req, file, callback) => {
+            if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+                return callback(new Error('invalid format'), false);
+            }
+            callback(null, true);
+        }
+    })),
     openapi.ApiResponse({ status: 201, type: require("./participants.entity").Participants }),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], ParticipantsController.prototype, "createParticipant", null);
 __decorate([
@@ -102,7 +118,6 @@ __decorate([
 ], ParticipantsController.prototype, "deleteParticipant", null);
 exports.ParticipantsController = ParticipantsController = __decorate([
     (0, swagger_1.ApiTags)('participants'),
-    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Controller)('participants'),
     __metadata("design:paramtypes", [participants_service_1.ParticipantsService])
 ], ParticipantsController);

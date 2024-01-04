@@ -1,13 +1,15 @@
-import {  Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, InternalServerErrorException, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import {  Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, InternalServerErrorException, NotFoundException, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ParticipantsService } from './participants.service';
 import { Participants } from './participants.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { ApiTags } from '@nestjs/swagger';
-import { Auth } from 'src/auth/decorators/auth.decorators';
-import { Role } from 'src/common/role.enum';
+//import { Auth } from 'src/auth/decorators/auth.decorators';
+//import { Role } from 'src/common/role.enum';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 
 @ApiTags('participants')
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
 @Controller('participants')
 export class ParticipantsController {
 
@@ -31,9 +33,39 @@ export class ParticipantsController {
 
 //crear un nuevo participante
 @Post()
-async createParticipant(@Body() participantData: Partial<Participants>): Promise<Participants> {
-  return this.participantSevice.create(participantData);
+@UseInterceptors(FileInterceptor('file' , {
+
+  storage: diskStorage(
+      {
+          destination: './upload/players',
+          filename: (_, file, callback) => {
+              callback(null, file.originalname);
+            }
+      }
+  ),
+  fileFilter: (req, file, callback)=>{
+                
+
+    if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+        return callback (new Error('invalid format'), false)
+    }
+
+    callback(null,true)
+  }
+
+} ))
+async createParticipant(
+  @UploadedFile() file: Express.Multer.File,
+
+  @Body() participantData: Partial<Participants>): Promise<Participants> {
+ 
+    participantData.Photo = file.filename; //ajuste provisional dependiendo el backend
+
+    return this.participantSevice.create(participantData);
 }
+
+
+
 //obtener un participante por su id
 
  @Get(':id')

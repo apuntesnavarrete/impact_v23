@@ -42,8 +42,35 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Teams[]>{
 }
 
 @Post()
-async create(@Body() teamsData:Partial<Teams>): Promise<Teams>{
-    return  this.teamService.create(teamsData)
+@UseInterceptors(FileInterceptor('file' , {
+
+    storage: diskStorage(
+        {
+            destination: './upload/teams',
+            filename: (_, file, callback) => {
+                callback(null, file.originalname);
+              }
+        }
+    ),
+
+    fileFilter: (req, file, callback)=>{
+                
+
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+            return callback (new Error('invalid format'), false)
+        }
+
+        callback(null,true)
+      }
+
+} ))
+
+async create(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() teamsData:Partial<Teams>): Promise<Teams>{
+         teamsData.logo = file.filename; //ajuste provisional dependiendo el backend
+
+        return await  this.teamService.create(teamsData)
 }
 
 @Put(':id')
@@ -52,6 +79,9 @@ async create(@Body() teamsData:Partial<Teams>): Promise<Teams>{
         // Lanza una excepción BadRequest si 'id' no es un número válido
         throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);
       }
+
+
+
  return this.teamService.teamById(id,teamsData)
 }
 
@@ -82,13 +112,22 @@ prueba(){
     storage: diskStorage(
         {
             destination: './upload',
-            filename: (_, file) => file.originalname,
-        }
-    )
+            filename: (_, file, callback) => {
+                callback(null, file.originalname);
+              }}
+    ),
+              fileFilter: (req, file, callback)=>{
+                
 
+                if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+                    return callback (new Error('invalid format'), false)
+                }
+
+                callback(null,true)
+              }
 } ))
 async uploadFile(@UploadedFile() file: Express.Multer.File) {
-  console.log(file); //logica despues de que se haya subido el archivo
+  console.log(file.filename); //logica despues de que se haya subido el archivo
 }
 
 //

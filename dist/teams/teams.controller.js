@@ -38,8 +38,9 @@ let TeamsController = class TeamsController {
         }
         return this.teamService.get(id);
     }
-    async create(teamsData) {
-        return this.teamService.create(teamsData);
+    async create(file, teamsData) {
+        teamsData.logo = file.filename;
+        return await this.teamService.create(teamsData);
     }
     async updateTeam(id, teamsData) {
         if (isNaN(id)) {
@@ -57,7 +58,7 @@ let TeamsController = class TeamsController {
         return "ruta de prueba";
     }
     async uploadFile(file) {
-        console.log(file);
+        console.log(file.filename);
     }
 };
 exports.TeamsController = TeamsController;
@@ -78,10 +79,25 @@ __decorate([
 ], TeamsController.prototype, "findTeamById", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
+        storage: (0, multer_1.diskStorage)({
+            destination: './upload/teams',
+            filename: (_, file, callback) => {
+                callback(null, file.originalname);
+            }
+        }),
+        fileFilter: (req, file, callback) => {
+            if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+                return callback(new Error('invalid format'), false);
+            }
+            callback(null, true);
+        }
+    })),
     openapi.ApiResponse({ status: 201, type: require("./teams.entity").Teams }),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "create", null);
 __decorate([
@@ -114,8 +130,16 @@ __decorate([
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
         storage: (0, multer_1.diskStorage)({
             destination: './upload',
-            filename: (_, file) => file.originalname,
-        })
+            filename: (_, file, callback) => {
+                callback(null, file.originalname);
+            }
+        }),
+        fileFilter: (req, file, callback) => {
+            if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+                return callback(new Error('invalid format'), false);
+            }
+            callback(null, true);
+        }
     })),
     openapi.ApiResponse({ status: 201 }),
     __param(0, (0, common_1.UploadedFile)()),
