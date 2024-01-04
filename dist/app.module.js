@@ -19,12 +19,16 @@ const cache_manager_1 = require("@nestjs/cache-manager");
 const cache_manager_redis_yet_1 = require("cache-manager-redis-yet");
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true
+            }),
             cache_manager_1.CacheModule.registerAsync({
                 isGlobal: true,
                 useFactory: async () => ({
@@ -42,11 +46,11 @@ exports.AppModule = AppModule = __decorate([
             }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: 'localhost',
-                port: 3306,
+                host: process.env.HOST,
+                port: parseInt(process.env.PORTDB),
                 username: 'root',
-                password: 'toor',
-                database: 'impac_jugadores',
+                password: process.env.PASSWORD,
+                database: process.env.DATABASE,
                 autoLoadEntities: true,
                 synchronize: true
             }),

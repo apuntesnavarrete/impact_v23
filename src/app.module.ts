@@ -10,12 +10,18 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ConfigModule } from '@nestjs/config';
 
 
 
 
 @Module({
   imports:[
+
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
+
     CacheModule.registerAsync({
       isGlobal: true,
       useFactory: async () => ({
@@ -39,11 +45,11 @@ import { join } from 'path';
 
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
+      host: process.env.HOST,
+      port: parseInt(process.env.PORTDB),
       username: 'root',
-      password: 'toor',
-      database: 'impac_jugadores',
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE,
       autoLoadEntities: true, // modificar para produccion
       synchronize: true}),
     ParticipantsModule,
