@@ -6,8 +6,8 @@ import { ParticipantsModule } from './participants/participants.module';
 import { TeamsModule } from './teams/teams.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { CacheModule } from '@nestjs/cache-manager';
-import { redisStore } from 'cache-manager-redis-yet';
+//import { CacheModule } from '@nestjs/cache-manager';
+//import { redisStore } from 'cache-manager-redis-yet';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
@@ -21,7 +21,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true
     }),
-
+/*
     CacheModule.registerAsync({
       isGlobal: true,
       useFactory: async () => ({
@@ -37,7 +37,7 @@ import { ConfigModule } from '@nestjs/config';
     
     }),
 
-
+*/
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
       serveRoot: '/public', // // Ruta al directorio de archivos públicos

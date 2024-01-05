@@ -1,22 +1,22 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {  Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Teams } from './teams.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
+//import { CACHE_MANAGER } from '@nestjs/cache-manager';
+//import { Cache } from 'cache-manager';
 
 @Injectable()
 export class TeamsService {
   constructor(
     @InjectRepository(Teams)
     private readonly TeamsRepository: Repository<Teams>,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache
+   // @Inject(CACHE_MANAGER) private cacheManager: Cache
   ) {} 
 
   async all(): Promise<Teams[]> {
-    const key = 'teams-find-all';
-    let teams = await this.cacheManager.get<Teams[]>(key);
-  
+   // const key = 'teams-find-all';
+   // let teams = await this.cacheManager.get<Teams[]>(key);
+  /*
     if (!teams) {
       console.log('Data not found in cache. Fetching from source.');
   
@@ -32,6 +32,10 @@ export class TeamsService {
     }
   
     return teams;
+    */
+   const teams = await this.TeamsRepository.find({
+      relations: ['participants']  });
+return teams
   }
 //corregir nombre
   async teamById(id : number, data : Partial<Teams> ) : Promise<UpdateResult> {

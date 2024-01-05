@@ -17,6 +17,8 @@ const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const participants_service_1 = require("./participants.service");
 const swagger_1 = require("@nestjs/swagger");
+const auth_decorators_1 = require("../auth/decorators/auth.decorators");
+const role_enum_1 = require("../common/role.enum");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 let ParticipantsController = class ParticipantsController {
@@ -118,6 +120,7 @@ __decorate([
 ], ParticipantsController.prototype, "deleteParticipant", null);
 exports.ParticipantsController = ParticipantsController = __decorate([
     (0, swagger_1.ApiTags)('participants'),
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Controller)('participants'),
     __metadata("design:paramtypes", [participants_service_1.ParticipantsService])
 ], ParticipantsController);

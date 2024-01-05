@@ -3,13 +3,13 @@ import { ParticipantsService } from './participants.service';
 import { Participants } from './participants.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { ApiTags } from '@nestjs/swagger';
-//import { Auth } from 'src/auth/decorators/auth.decorators';
-//import { Role } from 'src/common/role.enum';
+import { Auth } from 'src/auth/decorators/auth.decorators';
+import { Role } from 'src/common/role.enum';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 
 @ApiTags('participants')
-//@Auth(Role.ADMIN)
+@Auth(Role.ADMIN)
 @Controller('participants')
 export class ParticipantsController {
 

@@ -15,8 +15,6 @@ const participants_module_1 = require("./participants/participants.module");
 const teams_module_1 = require("./teams/teams.module");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
-const cache_manager_1 = require("@nestjs/cache-manager");
-const cache_manager_redis_yet_1 = require("cache-manager-redis-yet");
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
 const config_1 = require("@nestjs/config");
@@ -28,17 +26,6 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 isGlobal: true
-            }),
-            cache_manager_1.CacheModule.registerAsync({
-                isGlobal: true,
-                useFactory: async () => ({
-                    store: await (0, cache_manager_redis_yet_1.redisStore)({
-                        socket: {
-                            host: 'localhost',
-                            port: 6379,
-                        },
-                    }),
-                }),
             }),
             serve_static_1.ServeStaticModule.forRoot({
                 rootPath: (0, path_1.join)(__dirname, '..', 'public'),

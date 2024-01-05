@@ -17,6 +17,8 @@ const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const teams_service_1 = require("./teams.service");
 const swagger_1 = require("@nestjs/swagger");
+const auth_decorators_1 = require("../auth/decorators/auth.decorators");
+const role_enum_1 = require("../common/role.enum");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 let TeamsController = class TeamsController {
@@ -124,6 +126,7 @@ __decorate([
 ], TeamsController.prototype, "prueba", null);
 exports.TeamsController = TeamsController = __decorate([
     (0, swagger_1.ApiTags)('teams'),
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Controller)('teams'),
     __metadata("design:paramtypes", [teams_service_1.TeamsService])
 ], TeamsController);
