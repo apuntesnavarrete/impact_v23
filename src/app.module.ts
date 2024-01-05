@@ -47,7 +47,7 @@ import { ConfigModule } from '@nestjs/config';
       type: 'mysql',
       host: process.env.HOST,
       port: parseInt(process.env.PORTDB),
-      username: 'root',
+      username: 'admin',
       password: process.env.PASSWORD,
       database: process.env.DATABASE,
       autoLoadEntities: true, // modificar para produccion
