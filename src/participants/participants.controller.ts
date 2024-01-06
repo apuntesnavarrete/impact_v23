@@ -9,7 +9,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 
 @ApiTags('participants')
-@Auth(Role.ADMIN)
 @Controller('participants')
 export class ParticipantsController {
 
