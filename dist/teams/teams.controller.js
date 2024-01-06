@@ -42,6 +42,9 @@ let TeamsController = class TeamsController {
     }
     async create(file, teamsData) {
         teamsData.logo = file.filename;
+        if (file) {
+            teamsData.logo = file.filename;
+        }
         return await this.teamService.create(teamsData);
     }
     async updateTeam(id, teamsData) {
@@ -77,6 +80,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "findTeamById", null);
 __decorate([
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Post)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
         storage: (0, multer_1.diskStorage)({
@@ -92,6 +96,7 @@ __decorate([
             callback(null, true);
         }
     })),
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     openapi.ApiResponse({ status: 201, type: require("./teams.entity").Teams }),
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Body)()),
@@ -100,6 +105,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "create", null);
 __decorate([
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Put)(':id'),
     openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
@@ -109,9 +115,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "updateTeam", null);
 __decorate([
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Delete)(':id'),
-    (0, common_1.HttpCode)(204),
-    openapi.ApiResponse({ status: 204 }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
@@ -126,7 +132,6 @@ __decorate([
 ], TeamsController.prototype, "prueba", null);
 exports.TeamsController = TeamsController = __decorate([
     (0, swagger_1.ApiTags)('teams'),
-    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Controller)('teams'),
     __metadata("design:paramtypes", [teams_service_1.TeamsService])
 ], TeamsController);

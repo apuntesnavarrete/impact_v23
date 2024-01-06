@@ -50,3 +50,6 @@ pnpm-lock.yaml
 .stage.env
 public/
 /src/auth/constans
+src/auth/constans
+src/auth/constans.jwt.constan.ts
+/src/auth/constans.jwt.constan.ts

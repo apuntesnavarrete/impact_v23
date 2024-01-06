@@ -2,6 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.jwtConstants = void 0;
 exports.jwtConstants = {
-    secret: "ele pobre es pobre porque si"
+    secret: "clavesinrastrear"
 };
 //# sourceMappingURL=jwt.constan.js.map

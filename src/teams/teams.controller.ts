@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, InternalServerErrorException, Param, ParseIntPipe, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, InternalServerErrorException, Param, ParseIntPipe, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { TeamsService } from './teams.service';
 import { Participants } from 'src/participants/participants.entity';
 import { Teams } from './teams.entity';
@@ -12,7 +12,6 @@ import { diskStorage } from 'multer';
 
 
 @ApiTags('teams')
-@Auth(Role.ADMIN)
 @Controller('teams')
 export class TeamsController {
     constructor(private teamService : TeamsService){
@@ -40,6 +39,7 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Teams[]>{
       }
     return this.teamService.get(id)
 }
+@Auth(Role.ADMIN)
 
 @Post()
 @UseInterceptors(FileInterceptor('file' , {
@@ -64,14 +64,21 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Teams[]>{
       }
 
 } ))
+@Auth(Role.ADMIN)
 
 async create(
     @UploadedFile() file: Express.Multer.File,
     @Body() teamsData:Partial<Teams>): Promise<Teams>{
          teamsData.logo = file.filename; //ajuste provisional dependiendo el backend
 
+         if (file) {
+            teamsData.logo = file.filename; //ajuste provisional dependiendo el backend
+        } //ajuste provisional dependiendo el backend
+      
+         
         return await  this.teamService.create(teamsData)
 }
+@Auth(Role.ADMIN)
 
 @Put(':id')
  async updateTeam(@Param('id') id : number ,@Body() teamsData:Partial<Teams>): Promise <UpdateResult>{
@@ -84,9 +91,8 @@ async create(
 
  return this.teamService.teamById(id,teamsData)
 }
-
+@Auth(Role.ADMIN)
 @Delete(':id')
-@HttpCode(204)
 async delete(@Param('id') id :number) : Promise<DeleteResult>{
     if (isNaN(id)) {
         // Lanza una excepción BadRequest si 'id' no es un número válido
@@ -96,6 +102,7 @@ async delete(@Param('id') id :number) : Promise<DeleteResult>{
 }
 
  //modificar todos lo promise any
+
  @Get('upload')
 prueba(){
     return "ruta de prueba"

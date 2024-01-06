@@ -35,7 +35,9 @@ let ParticipantsController = class ParticipantsController {
         }
     }
     async createParticipant(file, participantData) {
-        participantData.Photo = file.filename;
+        if (file) {
+            participantData.Photo = file.filename;
+        }
         return this.participantSevice.create(participantData);
     }
     async getParticipant(id) {
@@ -70,6 +72,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ParticipantsController.prototype, "allParticipant", null);
 __decorate([
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Post)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
         storage: (0, multer_1.diskStorage)({
@@ -101,6 +104,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ParticipantsController.prototype, "getParticipant", null);
 __decorate([
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Put)(':id'),
     openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
@@ -110,9 +114,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ParticipantsController.prototype, "updateParticipant", null);
 __decorate([
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Delete)(':id'),
-    (0, common_1.HttpCode)(204),
-    openapi.ApiResponse({ status: 204 }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),

@@ -1,4 +1,4 @@
-import {  Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, InternalServerErrorException, NotFoundException, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import {  Body, Controller, Delete, Get, HttpException, HttpStatus, InternalServerErrorException, NotFoundException, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ParticipantsService } from './participants.service';
 import { Participants } from './participants.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
@@ -32,6 +32,8 @@ export class ParticipantsController {
     }
 
 //crear un nuevo participante
+@Auth(Role.ADMIN)
+
 @Post()
 @UseInterceptors(FileInterceptor('file' , {
 
@@ -59,7 +61,9 @@ async createParticipant(
 
   @Body() participantData: Partial<Participants>): Promise<Participants> {
  
-    participantData.Photo = file.filename; //ajuste provisional dependiendo el backend
+    if (file) {
+      participantData.Photo = file.filename;
+    } //ajuste provisional dependiendo el backend
 
     return this.participantSevice.create(participantData);
 }
@@ -80,6 +84,7 @@ async createParticipant(
 
  }
 //actualizar un participante
+@Auth(Role.ADMIN)
 
  @Put(':id')
  async updateParticipant(@Param('id') id: number, @Body() data: Partial<Participants>): Promise<UpdateResult> {
@@ -100,9 +105,9 @@ const updatedParticipant = await this.participantSevice.update(id, data);
   return updatedParticipant
  }
 //eliminar un participante
+@Auth(Role.ADMIN)
 
  @Delete(':id')
- @HttpCode(204)
  async deleteParticipant(@Param('id') id: number): Promise<DeleteResult> {
   if (isNaN(id)) {
     // Lanza una excepción BadRequest si 'id' no es un número válido

@@ -21,6 +21,8 @@ export class AuthController {
 constructor(
     private readonly authSservice: AuthService
 ){}
+
+@Auth(Role.ADMIN)
     @Post('register')
     register(
         @Body()
@@ -48,7 +50,6 @@ constructor(
 
         return "de prueba profile"
     }
-    @Auth(Role.ADMIN)
 
     @Get('prueba')
 

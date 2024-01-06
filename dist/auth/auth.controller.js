@@ -43,6 +43,7 @@ let AuthController = class AuthController {
 };
 exports.AuthController = AuthController;
 __decorate([
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Post)('register'),
     openapi.ApiResponse({ status: 201 }),
     __param(0, (0, common_1.Body)()),
@@ -67,7 +68,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "profile", null);
 __decorate([
-    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Get)('prueba'),
     openapi.ApiResponse({ status: 200, type: String }),
     __param(0, (0, active_user_decorator_1.ActiveUser)()),
