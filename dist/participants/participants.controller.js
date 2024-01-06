@@ -124,7 +124,6 @@ __decorate([
 ], ParticipantsController.prototype, "deleteParticipant", null);
 exports.ParticipantsController = ParticipantsController = __decorate([
     (0, swagger_1.ApiTags)('participants'),
-    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Controller)('participants'),
     __metadata("design:paramtypes", [participants_service_1.ParticipantsService])
 ], ParticipantsController);
