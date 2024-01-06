@@ -34,7 +34,11 @@ let AuthController = class AuthController {
     }
     profile(user) {
         console.log(user);
-        return user;
+        return "de prueba profile";
+    }
+    prueba(user) {
+        console.log(user);
+        return "de prueba usuarios";
     }
 };
 exports.AuthController = AuthController;
@@ -56,15 +60,23 @@ __decorate([
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.Get)('profile'),
-    openapi.ApiResponse({ status: 200, type: Object }),
+    openapi.ApiResponse({ status: 200, type: String }),
     __param(0, (0, active_user_decorator_1.ActiveUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "profile", null);
+__decorate([
+    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
+    (0, common_1.Get)('prueba'),
+    openapi.ApiResponse({ status: 200, type: String }),
+    __param(0, (0, active_user_decorator_1.ActiveUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "prueba", null);
 exports.AuthController = AuthController = __decorate([
     (0, swagger_1.ApiTags)('auth'),
-    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);

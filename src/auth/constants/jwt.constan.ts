@@ -1,3 +1,3 @@
 export  const jwtConstants = {
-    secret: process.env.JWTCLAVE
+    secret: "ele pobre es pobre porque si"
 }

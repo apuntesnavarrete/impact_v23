@@ -15,14 +15,12 @@ interface RequestWithUser extends Request{
 }
 */
 @ApiTags('auth')
-@Auth(Role.ADMIN)
 @Controller('auth')
 export class AuthController {
 
 constructor(
     private readonly authSservice: AuthService
 ){}
-
     @Post('register')
     register(
         @Body()
@@ -48,6 +46,17 @@ constructor(
     ){
         console.log(user )
 
-        return user
+        return "de prueba profile"
+    }
+    @Auth(Role.ADMIN)
+
+    @Get('prueba')
+
+    prueba(
+       @ActiveUser() user : UserActiveInterface
+    ){
+        console.log(user )
+
+        return "de prueba usuarios"
     }
 }

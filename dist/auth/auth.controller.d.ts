@@ -13,5 +13,6 @@ export declare class AuthController {
         token: string;
         email: string;
     }>;
-    profile(user: UserActiveInterface): UserActiveInterface;
+    profile(user: UserActiveInterface): string;
+    prueba(user: UserActiveInterface): string;
 }
