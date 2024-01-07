@@ -96,7 +96,6 @@ __decorate([
             callback(null, true);
         }
     })),
-    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     openapi.ApiResponse({ status: 201, type: require("./teams.entity").Teams }),
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Body)()),

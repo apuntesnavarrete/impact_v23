@@ -64,7 +64,6 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Teams[]>{
       }
 
 } ))
-@Auth(Role.ADMIN)
 
 async create(
     @UploadedFile() file: Express.Multer.File,
