@@ -41,7 +41,6 @@ let TeamsController = class TeamsController {
         return this.teamService.get(id);
     }
     async create(file, teamsData) {
-        teamsData.logo = file.filename;
         if (file) {
             teamsData.logo = file.filename;
         }

@@ -68,7 +68,6 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Teams[]>{
 async create(
     @UploadedFile() file: Express.Multer.File,
     @Body() teamsData:Partial<Teams>): Promise<Teams>{
-         teamsData.logo = file.filename; //ajuste provisional dependiendo el backend
 
          if (file) {
             teamsData.logo = file.filename; //ajuste provisional dependiendo el backend
