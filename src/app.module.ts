@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
+import { CategoriesModule } from './categories/categories.module';
 
 
 
@@ -56,6 +57,7 @@ import { ConfigModule } from '@nestjs/config';
     TeamsModule,
     UsersModule,
     AuthModule,
+    CategoriesModule,
      // Agrega esta línea para configurar el módulo de caché
 
   
