@@ -19,6 +19,15 @@ const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
 const config_1 = require("@nestjs/config");
 const categories_module_1 = require("./categories/categories.module");
+const leagues_module_1 = require("./leagues/leagues.module");
+const tournaments_module_1 = require("./tournaments/tournaments.module");
+const matches_module_1 = require("./matches/matches.module");
+const player_statistics_module_1 = require("./player-statistics/player-statistics.module");
+const rosters_module_1 = require("./rosters/rosters.module");
+const santions_module_1 = require("./santions/santions.module");
+const champions_players_module_1 = require("./champions-players/champions-players.module");
+const players_standout_module_1 = require("./players-standout/players-standout.module");
+const champions_teams_module_1 = require("./champions-teams/champions-teams.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -47,6 +56,15 @@ exports.AppModule = AppModule = __decorate([
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
             categories_module_1.CategoriesModule,
+            leagues_module_1.LeaguesModule,
+            tournaments_module_1.TournamentsModule,
+            matches_module_1.MatchesModule,
+            player_statistics_module_1.PlayerStatisticsModule,
+            rosters_module_1.RostersModule,
+            santions_module_1.SantionsModule,
+            champions_teams_module_1.ChampionsTeamsModule,
+            champions_players_module_1.ChampionsPlayersModule,
+            players_standout_module_1.PlayersStandoutModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -42,11 +42,11 @@ let CategoriesController = class CategoriesController {
         console.log(categoriesData);
         return await this.categoriesService.create(categoriesData);
     }
-    async updateTeam(id, teamsData) {
+    async updateTeam(id, Data) {
         if (isNaN(id)) {
             throw new common_1.HttpException('El ID proporcionado no es un número válido.', common_1.HttpStatus.BAD_REQUEST);
         }
-        return this.categoriesService.teamById(id, teamsData);
+        return this.categoriesService.teamById(id, Data);
     }
     async delete(id) {
         if (isNaN(id)) {

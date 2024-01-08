@@ -10,7 +10,9 @@ export class Categories{
         length:100
     })
     categorias: string
-
+//mejorar con siglas 
+//mix
+//que sea unica
     @Column({
         length:255,
         nullable: true,

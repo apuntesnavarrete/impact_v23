@@ -16,10 +16,8 @@ export class CategoriesController {
     constructor(private categoriesService : CategoriesService){
     }
 
-//obtener todos los equipos
 @Get()
 async allcategories(): Promise<Categories[]>{
-
     try {
         return await this.categoriesService.all()
 
@@ -27,7 +25,6 @@ async allcategories(): Promise<Categories[]>{
         console.error(error);
         throw new InternalServerErrorException('Error al obtener categorias');
     }
-
 }
 
 @Get(':id')
@@ -52,15 +49,13 @@ async create(
 @Auth(Role.ADMIN)
 
 @Put(':id')
- async updateTeam(@Param('id') id : number ,@Body() teamsData:Partial<Categories>): Promise <UpdateResult>{
+ async updateTeam(@Param('id') id : number ,@Body() Data:Partial<Categories>): Promise <UpdateResult>{
     if (isNaN(id)) {
         // Lanza una excepción BadRequest si 'id' no es un número válido
         throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);
       }
 
-
-
- return this.categoriesService.teamById(id,teamsData)
+ return this.categoriesService.teamById(id,Data)
 }
 @Auth(Role.ADMIN)
 @Delete(':id')
@@ -72,42 +67,10 @@ async delete(@Param('id') id :number) : Promise<DeleteResult>{
  return this.categoriesService.delete(id)
 }
 
- //modificar todos lo promise any
 
  @Get('upload')
 prueba(){
     return "ruta de prueba"
 }
-
-
-//
-
-/*
-
- @Post('upload')
-@UseInterceptors(FileInterceptor('file' , {
-
-    storage: diskStorage(
-        {
-            destination: './upload',
-            filename: (_, file, callback) => {
-                callback(null, file.originalname);
-              }}
-    ),
-              fileFilter: (req, file, callback)=>{
-                
-
-                if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
-                    return callback (new Error('invalid format'), false)
-                }
-
-                callback(null,true)
-              }
-} ))
-async uploadFile(@UploadedFile() file: Express.Multer.File) {
-  console.log(file.filename); //logica despues de que se haya subido el archivo
-}
-*/
-//
 
 }

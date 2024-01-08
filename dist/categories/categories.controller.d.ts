@@ -7,7 +7,7 @@ export declare class CategoriesController {
     allcategories(): Promise<Categories[]>;
     findTeamById(id: number): Promise<Categories[]>;
     create(categoriesData: any): Promise<Categories>;
-    updateTeam(id: number, teamsData: Partial<Categories>): Promise<UpdateResult>;
+    updateTeam(id: number, Data: Partial<Categories>): Promise<UpdateResult>;
     delete(id: number): Promise<DeleteResult>;
     prueba(): string;
 }

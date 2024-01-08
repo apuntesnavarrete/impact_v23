@@ -12,6 +12,15 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
 import { CategoriesModule } from './categories/categories.module';
+import { LeaguesModule } from './leagues/leagues.module';
+import { TournamentsModule } from './tournaments/tournaments.module';
+import { MatchesModule } from './matches/matches.module';
+import { PlayerStatisticsModule } from './player-statistics/player-statistics.module';
+import { RostersModule } from './rosters/rosters.module';
+import { SantionsModule } from './santions/santions.module';
+import { ChampionsPlayersModule } from './champions-players/champions-players.module';
+import { PlayersStandoutModule } from './players-standout/players-standout.module';
+import { ChampionsTeamsModule } from './champions-teams/champions-teams.module';
 
 
 
@@ -58,6 +67,15 @@ import { CategoriesModule } from './categories/categories.module';
     UsersModule,
     AuthModule,
     CategoriesModule,
+    LeaguesModule,
+    TournamentsModule,
+    MatchesModule,
+    PlayerStatisticsModule,
+    RostersModule,
+    SantionsModule,
+    ChampionsTeamsModule,
+    ChampionsPlayersModule,
+    PlayersStandoutModule,
      // Agrega esta línea para configurar el módulo de caché
 
   
