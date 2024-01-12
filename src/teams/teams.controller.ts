@@ -69,6 +69,7 @@ async create(
     @UploadedFile() file: Express.Multer.File,
     @Body() teamsData:Partial<Teams>): Promise<Teams>{
 
+
          if (file) {
             teamsData.logo = file.filename; //ajuste provisional dependiendo el backend
         } //ajuste provisional dependiendo el backend

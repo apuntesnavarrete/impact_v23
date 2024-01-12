@@ -36,8 +36,10 @@ let ParticipantsController = class ParticipantsController {
     }
     async createParticipant(file, participantData) {
         if (file) {
+            console.log(file);
             participantData.Photo = file.filename;
         }
+        console.log(participantData);
         return this.participantSevice.create(participantData);
     }
     async getParticipant(id) {

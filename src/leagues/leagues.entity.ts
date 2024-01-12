@@ -13,7 +13,12 @@ export class Leagues{
       })
       @IsNotEmpty()
       name: string;
-//mejorar con siglas 
+
+      @Column({
+        length: 255,
+      })
+      @IsNotEmpty()
+      Alias: string;
 //spartaq
 //que sea unica
       @Column({

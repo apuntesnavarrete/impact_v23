@@ -61,8 +61,10 @@ async createParticipant(
   @Body() participantData: Partial<Participants>): Promise<Participants> {
  
     if (file) {
+      console.log(file)
       participantData.Photo = file.filename;
     } //ajuste provisional dependiendo el backend
+    console.log(participantData)
 
     return this.participantSevice.create(participantData);
 }

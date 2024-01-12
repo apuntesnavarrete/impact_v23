@@ -43,13 +43,15 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Tournaments
 async create(
     @Body() teamsData:Partial<Tournaments>): Promise<Tournaments>{
 
-         
+         console.log(teamsData)
         return await  this.tournamentsService.create(teamsData)
 }
 @Auth(Role.ADMIN)
 
 @Put(':id')
  async updateTeam(@Param('id') id : number ,@Body() teamsData:Partial<Tournaments>): Promise <UpdateResult>{
+   
+   
     if (isNaN(id)) {
         // Lanza una excepción BadRequest si 'id' no es un número válido
         throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);

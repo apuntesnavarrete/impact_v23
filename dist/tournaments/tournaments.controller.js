@@ -39,6 +39,7 @@ let TournamentsController = class TournamentsController {
         return this.tournamentsService.get(id);
     }
     async create(teamsData) {
+        console.log(teamsData);
         return await this.tournamentsService.create(teamsData);
     }
     async updateTeam(id, teamsData) {

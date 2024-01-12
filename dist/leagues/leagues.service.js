@@ -25,6 +25,7 @@ let LeagueService = class LeagueService {
         const league = await this.LeaguesRepository.find({
             relations: ['participants']
         });
+        console.log(league);
         return league;
     }
     async LeagueById(id, data) {
