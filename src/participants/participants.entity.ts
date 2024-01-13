@@ -21,7 +21,9 @@ export class Participants {
 
   @Column({
     length: 18,
-    nullable:true
+    nullable:true,
+    unique:true
+
   })
   @Length(18)
   @IsOptional()

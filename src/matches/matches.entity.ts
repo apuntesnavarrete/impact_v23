@@ -1,7 +1,7 @@
 import { IsDateString } from "class-validator";
 import { Teams } from "src/teams/teams.entity";
 import { Tournaments } from "src/tournaments/tournaments.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Matches{
@@ -39,5 +39,12 @@ export class Matches{
 
   @ManyToOne(() => Tournaments, tournaments => tournaments.id)
   tournaments : Tournaments
+
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 
 }

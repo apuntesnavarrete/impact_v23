@@ -17,7 +17,7 @@ export class LeagueService {
  
    const league = await this.LeaguesRepository.find({
       relations: ['participants']  });
-return league
+  return league
   }
 //corregir nombre
   async LeagueById(id : number, data : Partial<Leagues> ) : Promise<UpdateResult> {

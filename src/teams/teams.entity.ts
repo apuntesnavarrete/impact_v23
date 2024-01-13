@@ -13,7 +13,7 @@ export class Teams{
         length: 255,
       })
       @IsEmpty()
-      name: string;
+      name_team: string;
 
   //creara la columna para el fundador del equipo  
 // con una relacion que viene de la tabla participantes

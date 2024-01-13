@@ -1,7 +1,7 @@
 import { Participants } from "src/participants/participants.entity";
 import { Teams } from "src/teams/teams.entity";
 import { Tournaments } from "src/tournaments/tournaments.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
 @Entity()
@@ -24,6 +24,13 @@ export class Rosters{
 
     @Column()
     typeParticipant: string
+
+    
+    @CreateDateColumn()
+    createdAt: Date;
+  
+    @UpdateDateColumn()
+    updatedAt: Date;
     //meter como enum
 
     //agregar un campo de activo
