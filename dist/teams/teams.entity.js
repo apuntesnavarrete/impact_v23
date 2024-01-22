@@ -16,7 +16,7 @@ const participants_entity_1 = require("../participants/participants.entity");
 const typeorm_1 = require("typeorm");
 let Teams = class Teams {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, name: { required: true, type: () => String }, participants: { required: true, type: () => require("../participants/participants.entity").Participants }, logo: { required: true, type: () => String }, createdAt: { required: true, type: () => Date }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => Number }, name: { required: true, type: () => String }, participants: { required: true, type: () => require("../participants/participants.entity").Participants }, logo: { required: true, type: () => String }, Date: { required: true, type: () => String }, createdAt: { required: true, type: () => Date }, updatedAt: { required: true, type: () => Date } };
     }
 };
 exports.Teams = Teams;
@@ -44,6 +44,10 @@ __decorate([
     (0, class_validator_1.IsEmpty)(),
     __metadata("design:type", String)
 ], Teams.prototype, "logo", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Teams.prototype, "Date", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

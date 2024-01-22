@@ -13,7 +13,7 @@ export class Teams{
         length: 255,
       })
       @IsEmpty()
-      name_team: string;
+      name: string;
 
   //creara la columna para el fundador del equipo  
 // con una relacion que viene de la tabla participantes
@@ -28,7 +28,13 @@ export class Teams{
       })
       @IsEmpty()
 
+      
+
       logo: string; //  *** debe ser opcional cambiar **
+
+      @Column({nullable:true})
+      Date: string
+
       @CreateDateColumn()
       createdAt: Date;
     

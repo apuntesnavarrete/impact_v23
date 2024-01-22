@@ -8,4 +8,6 @@ export declare class Rosters {
     participants: Participants;
     dorsal: string;
     typeParticipant: string;
+    createdAt: Date;
+    updatedAt: Date;
 }

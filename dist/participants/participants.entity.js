@@ -41,7 +41,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         length: 18,
-        nullable: true
+        nullable: true,
     }),
     (0, class_validator_1.Length)(18),
     (0, class_validator_1.IsOptional)(),
@@ -61,7 +61,6 @@ __decorate([
     (0, typeorm_1.Column)({
         length: 100,
         nullable: true,
-        unique: true
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEmail)(),

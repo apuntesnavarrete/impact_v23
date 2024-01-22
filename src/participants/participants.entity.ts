@@ -22,7 +22,7 @@ export class Participants {
   @Column({
     length: 18,
     nullable:true,
-    unique:true
+   // unique:true
 
   })
   @Length(18)
@@ -43,7 +43,7 @@ export class Participants {
   @Column({
     length: 100,
     nullable:true,
-    unique:true
+   // unique:true
   })
   @IsOptional()
   @IsEmail()

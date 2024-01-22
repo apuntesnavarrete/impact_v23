@@ -17,7 +17,7 @@ const tournaments_entity_1 = require("../tournaments/tournaments.entity");
 const typeorm_1 = require("typeorm");
 let Rosters = class Rosters {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, teams: { required: true, type: () => require("../teams/teams.entity").Teams }, tournaments: { required: true, type: () => require("../tournaments/tournaments.entity").Tournaments }, participants: { required: true, type: () => require("../participants/participants.entity").Participants }, dorsal: { required: true, type: () => String }, typeParticipant: { required: true, type: () => String } };
+        return { id: { required: true, type: () => Number }, teams: { required: true, type: () => require("../teams/teams.entity").Teams }, tournaments: { required: true, type: () => require("../tournaments/tournaments.entity").Tournaments }, participants: { required: true, type: () => require("../participants/participants.entity").Participants }, dorsal: { required: true, type: () => String }, typeParticipant: { required: true, type: () => String }, createdAt: { required: true, type: () => Date }, updatedAt: { required: true, type: () => Date } };
     }
 };
 exports.Rosters = Rosters;
@@ -45,6 +45,14 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Rosters.prototype, "typeParticipant", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Rosters.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Date)
+], Rosters.prototype, "updatedAt", void 0);
 exports.Rosters = Rosters = __decorate([
     (0, typeorm_1.Entity)()
 ], Rosters);

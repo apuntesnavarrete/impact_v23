@@ -22,6 +22,9 @@ export class Matches{
   teamHome: Teams;
 
   @Column()
+  matchday : number;
+
+  @Column()
   localgoals: number;
 
   @Column()
