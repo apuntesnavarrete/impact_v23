@@ -6,7 +6,7 @@ export declare class PlayersStatisticsController {
     constructor(playersStatisticsService: PlayersStatisticsService);
     allTeams(): Promise<Playerstatistics[]>;
     findTeamById(id: number): Promise<Playerstatistics[]>;
-    create(teamsData: Partial<Playerstatistics>): Promise<Playerstatistics>;
+    create(teamsData: Partial<Playerstatistics>[]): Promise<Partial<Playerstatistics>[]>;
     updateTeam(id: number, teamsData: Partial<Playerstatistics>): Promise<UpdateResult>;
     delete(id: number): Promise<DeleteResult>;
     prueba(): string;

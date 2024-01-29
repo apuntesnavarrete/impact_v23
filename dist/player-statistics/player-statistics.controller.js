@@ -74,12 +74,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PlayersStatisticsController.prototype, "findTeamById", null);
 __decorate([
-    (0, auth_decorators_1.Auth)(role_enum_1.Role.ADMIN),
     (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: require("./player-statistics.entity").Playerstatistics }),
+    openapi.ApiResponse({ status: 201, type: [Object] }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Array]),
     __metadata("design:returntype", Promise)
 ], PlayersStatisticsController.prototype, "create", null);
 __decorate([

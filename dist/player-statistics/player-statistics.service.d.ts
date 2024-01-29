@@ -6,6 +6,7 @@ export declare class PlayersStatisticsService {
     all(): Promise<Playerstatistics[]>;
     PlayersStatisticsById(id: number, data: Partial<Playerstatistics>): Promise<UpdateResult>;
     get(id: number): Promise<Playerstatistics[]>;
-    create(data: Partial<Playerstatistics>): Promise<Playerstatistics>;
+    create(data: Partial<Playerstatistics>[]): Promise<Partial<Playerstatistics>[]>;
     delete(id: number): Promise<DeleteResult>;
+    createMany(data: Partial<Playerstatistics>): Promise<Playerstatistics>;
 }

@@ -37,6 +37,7 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Playerstati
       }
     return this.playersStatisticsService.get(id)
 }
+/*
 @Auth(Role.ADMIN)
 
 @Post()
@@ -47,6 +48,13 @@ async create(
          
         return await  this.playersStatisticsService.create(teamsData)
 }
+*/
+
+@Post()
+async create(@Body() teamsData: Partial<Playerstatistics>[]): Promise<Partial<Playerstatistics>[]> {
+    return await this.playersStatisticsService.create(teamsData);
+}
+
 @Auth(Role.ADMIN)
 
 @Put(':id')

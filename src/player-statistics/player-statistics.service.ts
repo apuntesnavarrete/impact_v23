@@ -29,12 +29,25 @@ async get(id : number):Promise<Playerstatistics[]>{
   return this.PlayerStatisticsRepository.findBy({ id: id });
 }
 
-  async create(data : Partial<Playerstatistics>): Promise<Playerstatistics>{
-    return this.PlayerStatisticsRepository.save(data)
-   }
+async create(data: Partial<Playerstatistics>[]):Promise<Partial<Playerstatistics>[]> {
+ 
+  const createdRecords: Playerstatistics[] = [];
+  // array que almacenará los registros creados. Este array se inicializa como un array vacío.
+
+  for (const recordData of data) {
+    const createdRecord = await this.PlayerStatisticsRepository.save(recordData);
+    createdRecords.push(createdRecord);
+  }
+
+  return createdRecords;
+}
 
    async delete(id : number):Promise<DeleteResult> {
     return this.PlayerStatisticsRepository.delete(id)
+   }
+
+   async createMany(data : Partial<Playerstatistics>): Promise<Playerstatistics>{
+    return this.PlayerStatisticsRepository.save(data)
    }
 
     //modificar todos lo promise any

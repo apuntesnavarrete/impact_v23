@@ -34,10 +34,18 @@ let PlayersStatisticsService = class PlayersStatisticsService {
         return this.PlayerStatisticsRepository.findBy({ id: id });
     }
     async create(data) {
-        return this.PlayerStatisticsRepository.save(data);
+        const createdRecords = [];
+        for (const recordData of data) {
+            const createdRecord = await this.PlayerStatisticsRepository.save(recordData);
+            createdRecords.push(createdRecord);
+        }
+        return createdRecords;
     }
     async delete(id) {
         return this.PlayerStatisticsRepository.delete(id);
+    }
+    async createMany(data) {
+        return this.PlayerStatisticsRepository.save(data);
     }
 };
 exports.PlayersStatisticsService = PlayersStatisticsService;
