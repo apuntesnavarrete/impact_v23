@@ -15,3 +15,4 @@ monitorizacion para revisar el rendimiento de la api
 
 -------------
 Agregar Dto a los rutas 
+//proteger ruta stadisticas

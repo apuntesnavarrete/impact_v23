@@ -22,10 +22,10 @@ let PlayersStatisticsService = class PlayersStatisticsService {
         this.PlayerStatisticsRepository = PlayerStatisticsRepository;
     }
     async all() {
-        const tournaments = await this.PlayerStatisticsRepository.find({
-            relations: ['matches', 'participants', 'teams'],
+        const playerStatistics = await this.PlayerStatisticsRepository.find({
+            relations: ['matches', 'participants', 'teams', 'matches.tournaments'],
         });
-        return tournaments;
+        return playerStatistics;
     }
     async PlayersStatisticsById(id, data) {
         return this.PlayerStatisticsRepository.update(id, data);

@@ -14,10 +14,12 @@ export class PlayersStatisticsService {
 
   async all(): Promise<Playerstatistics[]> {
  
-   const tournaments = await this.PlayerStatisticsRepository.find({
-      relations:  ['matches', 'participants', 'teams'] ,
-     });
-return tournaments
+    const playerStatistics = await this.PlayerStatisticsRepository.find({
+      relations: ['matches', 'participants', 'teams', 'matches.tournaments'],
+    });
+    
+    // Ahora puedes acceder a la relación con torneos desde playerStatistics.matches.tournaments
+    return playerStatistics;
   }
 //corregir nombre
   async PlayersStatisticsById(id : number, data : Partial<Playerstatistics> ) : Promise<UpdateResult> {
