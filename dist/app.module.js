@@ -28,6 +28,7 @@ const santions_module_1 = require("./santions/santions.module");
 const champions_players_module_1 = require("./champions-players/champions-players.module");
 const players_standout_module_1 = require("./players-standout/players-standout.module");
 const champions_teams_module_1 = require("./champions-teams/champions-teams.module");
+const teams_tournament_module_1 = require("./teams-tournament/teams-tournament.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -65,6 +66,7 @@ exports.AppModule = AppModule = __decorate([
             champions_teams_module_1.ChampionsTeamsModule,
             champions_players_module_1.ChampionsPlayersModule,
             players_standout_module_1.PlayersStandoutModule,
+            teams_tournament_module_1.TeamsTournamentModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

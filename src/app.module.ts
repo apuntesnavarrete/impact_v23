@@ -21,6 +21,7 @@ import { SantionsModule } from './santions/santions.module';
 import { ChampionsPlayersModule } from './champions-players/champions-players.module';
 import { PlayersStandoutModule } from './players-standout/players-standout.module';
 import { ChampionsTeamsModule } from './champions-teams/champions-teams.module';
+import { TeamsTournamentModule } from './teams-tournament/teams-tournament.module';
 
 
 
@@ -76,6 +77,7 @@ import { ChampionsTeamsModule } from './champions-teams/champions-teams.module';
     ChampionsTeamsModule,
     ChampionsPlayersModule,
     PlayersStandoutModule,
+    TeamsTournamentModule,
      // Agrega esta línea para configurar el módulo de caché
 
   
