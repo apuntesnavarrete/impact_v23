@@ -24,4 +24,5 @@ export class TeamsTournament {
   
     @UpdateDateColumn()
     updatedAt: Date;
+  data: { id: number; };
 }

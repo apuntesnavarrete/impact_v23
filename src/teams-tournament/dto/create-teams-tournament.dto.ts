@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty } from "class-validator";
+import { IsInt, IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreateTeamsTournamentDto {
 
@@ -11,8 +11,8 @@ export class CreateTeamsTournamentDto {
     readonly tournamentsId: number;
 
     @IsInt()
-    @IsNotEmpty()
-    readonly participantsId: number;
+    @IsOptional()
+    readonly participantsId: number | null;
 
 
 }

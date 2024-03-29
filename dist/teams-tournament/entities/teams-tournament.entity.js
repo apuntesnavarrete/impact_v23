@@ -17,7 +17,7 @@ const tournaments_entity_1 = require("../../tournaments/tournaments.entity");
 const typeorm_1 = require("typeorm");
 let TeamsTournament = class TeamsTournament {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, teams: { required: true, type: () => require("../../teams/teams.entity").Teams }, tournaments: { required: true, type: () => require("../../tournaments/tournaments.entity").Tournaments }, participants: { required: true, type: () => require("../../participants/participants.entity").Participants }, createdAt: { required: true, type: () => Date }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => Number }, teams: { required: true, type: () => require("../../teams/teams.entity").Teams }, tournaments: { required: true, type: () => require("../../tournaments/tournaments.entity").Tournaments }, participants: { required: true, type: () => require("../../participants/participants.entity").Participants }, createdAt: { required: true, type: () => Date }, updatedAt: { required: true, type: () => Date }, data: { required: true, type: () => ({ id: { required: true, type: () => Number } }) } };
     }
 };
 exports.TeamsTournament = TeamsTournament;

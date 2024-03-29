@@ -8,4 +8,7 @@ export declare class TeamsTournament {
     participants: Participants;
     createdAt: Date;
     updatedAt: Date;
+    data: {
+        id: number;
+    };
 }

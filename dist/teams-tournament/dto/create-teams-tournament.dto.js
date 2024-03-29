@@ -14,7 +14,7 @@ const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreateTeamsTournamentDto {
     static _OPENAPI_METADATA_FACTORY() {
-        return { teamsId: { required: true, type: () => Number }, tournamentsId: { required: true, type: () => Number }, participantsId: { required: true, type: () => Number } };
+        return { teamsId: { required: true, type: () => Number }, tournamentsId: { required: true, type: () => Number }, participantsId: { required: true, type: () => Number, nullable: true } };
     }
 }
 exports.CreateTeamsTournamentDto = CreateTeamsTournamentDto;
@@ -30,7 +30,7 @@ __decorate([
 ], CreateTeamsTournamentDto.prototype, "tournamentsId", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], CreateTeamsTournamentDto.prototype, "participantsId", void 0);
 //# sourceMappingURL=create-teams-tournament.dto.js.map

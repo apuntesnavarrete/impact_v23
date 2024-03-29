@@ -12,7 +12,6 @@ export class TeamsTournamentService {
   @InjectRepository(TeamsTournament)
   private readonly teamsTournamentRepository: Repository<TeamsTournament>,
 
-
  ){
 
  }
@@ -29,17 +28,6 @@ export class TeamsTournamentService {
   return await this.teamsTournamentRepository.save(newTeamsTournament);
 }
 
-
-/*
-  async create(data : Partial<Teams>): Promise<Teams>{
-    return this.TeamsRepository.save(data)
-   }
-   */
-/*
-  findAll() {
-    return `This action returns all teamsTournament`;
-  }
-*/
   async findAll(): Promise<TeamsTournament[]> {
  
     const santions = await this.teamsTournamentRepository.find({
@@ -102,25 +90,5 @@ export class TeamsTournamentService {
 
     return true
   }
-/*
-  async delete(id: number): Promise<boolean> {
-    // Buscar el objeto TeamsTournament por su ID
-    const teamsTournament = await this.teamsTournamentRepository.findOne(id);
 
-    // Verificar si se encontró el objeto TeamsTournament
-    if (!teamsTournament) {
-        throw new Error(`TeamsTournament with id ${id} not found`);
-    }
-
-    // Eliminar el objeto TeamsTournament de la base de datos
-    const deleteResult = await this.teamsTournamentRepository.delete(id);
-
-    // Verificar si la eliminación tuvo éxito
-    if (deleteResult.affected === 0) {
-        return false; // No se pudo eliminar el objeto
-    }
-
-    return true; // Se eliminó el objeto correctamente
-}
-*/
 }
