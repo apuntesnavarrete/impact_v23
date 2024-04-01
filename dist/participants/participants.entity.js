@@ -15,7 +15,7 @@ const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 let Participants = class Participants {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => Number }, name: { required: true, type: () => String }, birthDate: { required: false, type: () => String }, Curp: { required: false, type: () => String, minLength: 18, pattern: "/^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9]{2}$/" }, Photo: { required: false, type: () => String }, Email: { required: false, type: () => String }, createdAt: { required: true, type: () => Date }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => Number }, name: { required: true, type: () => String }, birthDate: { required: false, type: () => String }, Curp: { required: false, type: () => String, minLength: 18, pattern: "/^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9]{2}$/" }, Photo: { required: false, type: () => String }, Email: { required: false, type: () => String }, sex: { required: false, type: () => Object }, createdAt: { required: true, type: () => Date }, updatedAt: { required: true, type: () => Date } };
     }
 };
 exports.Participants = Participants;
@@ -66,6 +66,15 @@ __decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
 ], Participants.prototype, "Email", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: 'enum',
+        enum: ['F', 'M'],
+        nullable: true,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], Participants.prototype, "sex", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

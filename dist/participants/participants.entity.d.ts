@@ -5,6 +5,7 @@ export declare class Participants {
     Curp?: string;
     Photo?: string;
     Email?: string;
+    sex?: 'F' | 'M';
     createdAt: Date;
     updatedAt: Date;
 }

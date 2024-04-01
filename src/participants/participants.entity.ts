@@ -49,6 +49,14 @@ export class Participants {
   @IsEmail()
   Email?: string;
 
+  @Column({
+    type: 'enum',
+    enum: ['F', 'M'],
+    nullable: true,
+  })
+  @IsOptional()
+  sex?: 'F' | 'M';
+
   //Agregando campos Timestamp
 
   @CreateDateColumn()
