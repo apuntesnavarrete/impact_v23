@@ -31,7 +31,7 @@ export class ParticipantsController {
     }
 
 //crear un nuevo participante
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
 
 @Post()
 @UseInterceptors(FileInterceptor('file' , {
@@ -85,28 +85,47 @@ async createParticipant(
 
  }
 //actualizar un participante
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
+
+
+
 
  @Put(':id')
- async updateParticipant(@Param('id') id: number, @Body() data: Partial<Participants>): Promise<UpdateResult> {
-//  const updatedParticipant = this.participantSevice.update(id, data);
-if (isNaN(id)) {
-  // Lanza una excepción BadRequest si 'id' no es un número válido
-  throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);
-} 
+ @UseInterceptors(FileInterceptor('file', {
+  storage: diskStorage({
+    destination: 'public/participants',
+    filename: (_, file, callback) => {
+      callback(null, file.originalname);
+    }
+  }),
+  fileFilter: (req, file, callback) => {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return callback(new Error('Invalid format'), false);
+    }
+    callback(null, true);
+  }
+}))
+ async updateParticipant(
+  @Param('id') id: number,
+  @UploadedFile() file: Express.Multer.File,
+  @Body() data: Partial<Participants>): Promise<UpdateResult> {
+
 
 const updatedParticipant = await this.participantSevice.update(id, data);
+console.log(data)
+console.log(file)
 
-  if (updatedParticipant.affected === 0) {
-    // Si no se actualiza ningún campo, puedes manejarlo según tus necesidades.
+
+if (updatedParticipant.affected === 0) {
     throw new NotFoundException
     (`No fields updated for participant with id ${id} , check you put a valid id`);
   }
 
+
+
   return updatedParticipant
  }
-//eliminar un participante
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
 
  @Delete(':id')
  async deleteParticipant(@Param('id') id: number): Promise<DeleteResult> {
@@ -117,5 +136,19 @@ const updatedParticipant = await this.participantSevice.update(id, data);
    return this.participantSevice.delete(id);
  }
 
- //BUSCAR JUGADOR POR NOMBRE **eso se hara en el frontend obteniendo todos los participantes y filtrando.
+ @Post('upload-image')
+  @UseInterceptors(FileInterceptor('image', {
+    storage: diskStorage({
+      destination: './public/participants', // Carpeta donde se guardarán las imágenes
+      filename: (_, file, callback) => {
+        callback(null, file.originalname);
+      },
+    }),
+  }))
+  uploadImage(@UploadedFile() image: Express.Multer.File) {
+    // Aquí puedes procesar la imagen y realizar operaciones adicionales si es necesario
+    return { filename: image.filename };
+  }
+
+
 }
