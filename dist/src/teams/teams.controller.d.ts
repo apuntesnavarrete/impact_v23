@@ -12,4 +12,7 @@ export declare class TeamsController {
     updateTeam(id: number, teamsData: Partial<Teams>): Promise<UpdateResult>;
     delete(id: number): Promise<DeleteResult>;
     prueba(): string;
+    uploadImage(image: Express.Multer.File): {
+        filename: string;
+    };
 }

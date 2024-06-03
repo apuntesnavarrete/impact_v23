@@ -39,7 +39,7 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Teams[]>{
       }
     return this.teamService.get(id)
 }
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
 
 @Post()
 @UseInterceptors(FileInterceptor('file' , {
@@ -77,7 +77,7 @@ async create(
          
         return await  this.teamService.create(teamsData)
 }
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
 
 @Put(':id')
  async updateTeam(@Param('id') id : number ,@Body() teamsData:Partial<Teams>): Promise <UpdateResult>{
@@ -90,7 +90,7 @@ async create(
 
  return this.teamService.teamById(id,teamsData)
 }
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
 @Delete(':id')
 async delete(@Param('id') id :number) : Promise<DeleteResult>{
     if (isNaN(id)) {
@@ -106,7 +106,19 @@ async delete(@Param('id') id :number) : Promise<DeleteResult>{
 prueba(){
     return "ruta de prueba"
 }
-
+@Post('upload-image')
+@UseInterceptors(FileInterceptor('image', {
+  storage: diskStorage({
+    destination: './public/teams', // Carpeta donde se guardarán las imágenes
+    filename: (_, file, callback) => {
+      callback(null, file.originalname);
+    },
+  }),
+}))
+uploadImage(@UploadedFile() image: Express.Multer.File) {
+  // Aquí puedes procesar la imagen y realizar operaciones adicionales si es necesario
+  return { filename: image.filename };
+}
 
 //
 
