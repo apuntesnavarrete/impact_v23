@@ -44,9 +44,9 @@ exports.AppModule = AppModule = __decorate([
             }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: process.env.HOST,
+                host: process.env.HOSTSQL,
                 port: parseInt(process.env.PORTDB),
-                username: 'root',
+                username: process.env.USERNAMESQL,
                 password: process.env.PASSWORD,
                 database: process.env.DATABASE,
                 autoLoadEntities: true,
