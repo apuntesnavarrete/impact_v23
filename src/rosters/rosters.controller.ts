@@ -38,7 +38,7 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Rosters[]>{
       }
     return this.roustersService.get(id)
 }
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
 
 @Post()
 
@@ -48,7 +48,7 @@ async create(
          
         return await  this.roustersService.create(teamsData)
 }
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
 
 @Put(':id')
  async updateTeam(@Param('id') id : number ,@Body() teamsData:Partial<Rosters>): Promise <UpdateResult>{
@@ -61,7 +61,7 @@ async create(
 
  return this.roustersService.rostersById(id,teamsData)
 }
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
 @Delete(':id')
 async delete(@Param('id') id :number) : Promise<DeleteResult>{
     if (isNaN(id)) {

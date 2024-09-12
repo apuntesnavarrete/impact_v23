@@ -50,15 +50,15 @@ import { TeamsTournamentModule } from './teams-tournament/teams-tournament.modul
 
 */
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-      serveRoot: '/public', // // Ruta al directorio de archivos públicos
+      rootPath: join(__dirname, '..', '..', 'public'),
+      serveRoot: '/public', // Ruta desde la que se servirán los archivos públicos
     }),
 
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.HOST,
       port: parseInt(process.env.PORTDB),
-      username: 'admin',
+      username: 'root',
       password: process.env.PASSWORD,
       database: process.env.DATABASE,
       autoLoadEntities: true, // modificar para produccion
