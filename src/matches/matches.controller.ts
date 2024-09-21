@@ -36,7 +36,7 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Matches[]>{
       }
     return this.matchesService.get(id)
 }
-//@Auth(Role.ADMIN)
+@Auth(Role.ADMIN)
 
 @Post()
 
@@ -46,7 +46,7 @@ async create(
          
         return await  this.matchesService.create(teamsData)
 }
-//@Auth(Role.ADMIN)
+@Auth(Role.ADMIN)
 
 @Put(':id')
  async updateTeam(@Param('id') id : number ,@Body() Data:Partial<Matches>): Promise <UpdateResult>{
@@ -59,7 +59,7 @@ async create(
 
  return this.matchesService.MatchesById(id,Data)
 }
-//@Auth(Role.ADMIN)
+@Auth(Role.ADMIN)
 @Delete(':id')
 async delete(@Param('id') id :number) : Promise<DeleteResult>{
     if (isNaN(id)) {

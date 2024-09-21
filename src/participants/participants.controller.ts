@@ -31,7 +31,7 @@ export class ParticipantsController {
     }
 
 //crear un nuevo participante
-//@Auth(Role.ADMIN)
+@Auth(Role.ADMIN)
 
 @Post()
 @UseInterceptors(FileInterceptor('file' , {
@@ -85,7 +85,7 @@ async createParticipant(
 
  }
 //actualizar un participante
-//@Auth(Role.ADMIN)
+@Auth(Role.ADMIN)
 
 
 
@@ -125,7 +125,7 @@ if (updatedParticipant.affected === 0) {
 
   return updatedParticipant
  }
-//@Auth(Role.ADMIN)
+ @Auth(Role.ADMIN)
 
  @Delete(':id')
  async deleteParticipant(@Param('id') id: number): Promise<DeleteResult> {

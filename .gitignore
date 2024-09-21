@@ -49,5 +49,6 @@ pnpm-lock.yaml
 .env
 .stage.env
 public/
+dist/
 
 impac.http

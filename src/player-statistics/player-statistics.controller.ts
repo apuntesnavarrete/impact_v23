@@ -51,6 +51,8 @@ async create(
 */
 
 //proteger ruta stadisticas
+@Auth(Role.ADMIN)
+
 @Post()
 async create(@Body() teamsData: Partial<Playerstatistics>[]): Promise<Partial<Playerstatistics>[]> {
     return await this.playersStatisticsService.create(teamsData);

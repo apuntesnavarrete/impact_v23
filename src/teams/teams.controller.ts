@@ -39,7 +39,7 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Teams[]>{
       }
     return this.teamService.get(id)
 }
-//@Auth(Role.ADMIN)
+@Auth(Role.ADMIN)
 
 @Post()
 @UseInterceptors(FileInterceptor('file' , {
@@ -77,7 +77,7 @@ async create(
          
         return await  this.teamService.create(teamsData)
 }
-//@Auth(Role.ADMIN)
+@Auth(Role.ADMIN)
 
 @Put(':id')
  async updateTeam(@Param('id') id : number ,@Body() teamsData:Partial<Teams>): Promise <UpdateResult>{
@@ -90,7 +90,7 @@ async create(
 
  return this.teamService.teamById(id,teamsData)
 }
-//@Auth(Role.ADMIN)
+@Auth(Role.ADMIN)
 @Delete(':id')
 async delete(@Param('id') id :number) : Promise<DeleteResult>{
     if (isNaN(id)) {
