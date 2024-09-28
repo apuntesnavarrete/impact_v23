@@ -22,7 +22,7 @@ constructor(
     private readonly authSservice: AuthService
 ){}
 
-@Auth(Role.ADMIN)
+//@Auth(Role.ADMIN)
     @Post('register')
     register(
         @Body()

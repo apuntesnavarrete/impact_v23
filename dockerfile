@@ -18,7 +18,6 @@ RUN npm install
 
 # Expone el puerto que utiliza tu aplicación (ajústalo si es necesario)
 EXPOSE 4000
-
 # Comando para iniciar la aplicación automáticamente
 CMD ["npm", "run", "start"]
 # Comando para mantener el contenedor activo (puedes cambiarlo según necesites)

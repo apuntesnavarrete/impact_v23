@@ -35,9 +35,10 @@ export class AuthService {
     }
 
     async login({ email, password}:LoginDto){
-
+        console.log(email)
         const user =  await this.userService.findOnebyEmail(email);
-    
+        console.log(user)
+
         if(!user){
             throw new UnauthorizedException('email is wrong')
         }
@@ -50,8 +51,9 @@ export class AuthService {
 
         console.log(user.email)
         const payload = { email: user.email, role: user.role }
+        console.log(payload)
         const token = await this.jwtService.signAsync(payload)
-
+        console.log(token)
         return {
             token,
             email
