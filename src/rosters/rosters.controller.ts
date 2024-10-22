@@ -41,12 +41,18 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Rosters[]>{
 @Auth(Role.ADMIN)
 
 @Post()
-
 async create(
-    @Body() teamsData:Partial<Rosters>): Promise<Rosters>{
+    @Body() teamsData: Partial<Rosters> | Partial<Rosters>[]): Promise<Rosters | Rosters[]> {
 
-         
-        return await  this.roustersService.create(teamsData)
+    if (Array.isArray(teamsData)) {
+        // Si es un array, guarda cada jugador
+      console.log(teamsData)
+        const savedPlayers = await Promise.all(teamsData.map(player => this.roustersService.create(player)));
+        return savedPlayers; // Devuelve todos los jugadores creados
+    } else {
+        // Si es un solo jugador
+        return await this.roustersService.create(teamsData);
+    }
 }
 @Auth(Role.ADMIN)
 

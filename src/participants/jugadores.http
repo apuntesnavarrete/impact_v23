@@ -27,3 +27,10 @@ Accept: application/json
 {
   "dummyData": "Just a test"
 }
+
+
+
+###
+GET http://10.210.20.243:8080/api/v1/participants/1398
+Accept: application/json
+
