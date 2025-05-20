@@ -31,7 +31,6 @@ async allTeams(): Promise<Tournaments[]>{
 @Get(':id')
 async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Tournaments[]>{
     if (isNaN(id)) {
-        // Lanza una excepción BadRequest si 'id' no es un número válido
         throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);
       }
     return this.tournamentsService.get(id)
@@ -53,11 +52,8 @@ async create(
    
    
     if (isNaN(id)) {
-        // Lanza una excepción BadRequest si 'id' no es un número válido
         throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);
       }
-
-
 
  return this.tournamentsService.TournamentsById(id,teamsData)
 }
@@ -65,48 +61,22 @@ async create(
 @Delete(':id')
 async delete(@Param('id') id :number) : Promise<DeleteResult>{
     if (isNaN(id)) {
-        // Lanza una excepción BadRequest si 'id' no es un número válido
         throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);
       }
  return this.tournamentsService.delete(id)
 }
 
- //modificar todos lo promise any
 
- @Get('upload')
-prueba(){
-    return "ruta de prueba"
+@Get('unique-categories/:alias')
+async getUniqueCategories(@Param('alias') alias: string): Promise<string[]> {
+  try {
+    return await this.tournamentsService.getUniqueCategoriesByLeague(alias);
+  } catch (error) {
+    console.error(error);
+    throw new InternalServerErrorException('Error al obtener categorías únicas');
+  }
 }
 
 
-//
-
-/*
-
- @Post('upload')
-@UseInterceptors(FileInterceptor('file' , {
-
-    storage: diskStorage(
-        {
-            destination: './upload',
-            filename: (_, file, callback) => {
-                callback(null, file.originalname);
-              }}
-    ),
-              fileFilter: (req, file, callback)=>{
-                
-
-                if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
-                    return callback (new Error('invalid format'), false)
-                }
-
-                callback(null,true)
-              }
-} ))
-async uploadFile(@UploadedFile() file: Express.Multer.File) {
-  console.log(file.filename); //logica despues de que se haya subido el archivo
-}
-*/
-//
 
 }

@@ -38,6 +38,21 @@ async get(id : number):Promise<Tournaments[]>{
     return this.TournamentsRepository.delete(id)
    }
 
+async getUniqueCategoriesByLeague(aliasLiga: string): Promise<string[]> {
+  const tournaments = await this.TournamentsRepository.find({
+    relations: ['leagues', 'categories'],
+  });
+
+  const categorias = tournaments
+    .filter(t => t.leagues?.Alias === aliasLiga)
+    .map(t => t.categories?.categorias)
+    .filter(c => c); // elimina valores null o undefined
+
+  const unique = [...new Set(categorias)];
+  return unique;
+}
+   
+
     //modificar todos lo promise any
  
   //terminar el crud
