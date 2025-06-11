@@ -9,6 +9,8 @@ import { Matches } from './matches.entity';
     TypeOrmModule.forFeature([Matches])
   ],
   controllers: [MatchesController],
-  providers: [MatchesService]
+  providers: [MatchesService],
+    exports: [MatchesService], // 👈 importante
+
 })
 export class MatchesModule {}

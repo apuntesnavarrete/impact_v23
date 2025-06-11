@@ -22,6 +22,7 @@ import { ChampionsPlayersModule } from './champions-players/champions-players.mo
 import { PlayersStandoutModule } from './players-standout/players-standout.module';
 import { ChampionsTeamsModule } from './champions-teams/champions-teams.module';
 import { TeamsTournamentModule } from './teams-tournament/teams-tournament.module';
+import { TablageneralModule } from './tablageneral/tablageneral.module';
 
 
 
@@ -78,6 +79,7 @@ import { TeamsTournamentModule } from './teams-tournament/teams-tournament.modul
     ChampionsPlayersModule,
     PlayersStandoutModule,
     TeamsTournamentModule,
+    TablageneralModule
      // Agrega esta línea para configurar el módulo de caché
 
   
