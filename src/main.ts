@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: ['http://localhost:5173', 'http://10.210.20.243:8081', 'http://192.168.0.7:8081'], // Add your new domain here
+    origin: ['http://localhost:5173','http://localhost:5174', 'http://10.210.20.243:8081', 'http://192.168.0.7:8081'], // Add your new domain here
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Habilita el intercambio de cookies a través de las solicitudes de dominio cruzado
   });
