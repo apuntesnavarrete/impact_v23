@@ -1,16 +1,14 @@
 import {  Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Like, Repository, UpdateResult } from 'typeorm';
 import { Tournaments } from './tournaments.entity';
-//import { CACHE_MANAGER } from '@nestjs/cache-manager';
-//import { Cache } from 'cache-manager';
+
 
 @Injectable()
 export class TournamentsService {
   constructor(
     @InjectRepository(Tournaments)
     private readonly TournamentsRepository: Repository<Tournaments>,
-   // @Inject(CACHE_MANAGER) private cacheManager: Cache
   ) {} 
 
   async all(): Promise<Tournaments[]> {
@@ -30,13 +28,26 @@ async get(id : number):Promise<Tournaments[]>{
   return this.TournamentsRepository.findBy({ id: id });
 }
 
-  async create(data : Partial<Tournaments>): Promise<Tournaments>{
-    return this.TournamentsRepository.save(data)
-   }
+async getTournamentsByLeague(aliasLiga: string): Promise<Tournaments[]> {
+  return this.TournamentsRepository.find({
+    where: {
+      leagues: { Alias: aliasLiga }
+    },
+    relations: ['leagues', 'categories']
+  });
+}
 
-   async delete(id : number):Promise<DeleteResult> {
-    return this.TournamentsRepository.delete(id)
-   }
+async getTournamentsByLeagueAndCategory(liga: string, categoria: string): Promise<Tournaments[]> {
+   return this.TournamentsRepository.find({
+    where: {
+      leagues: { Alias: liga },
+      categories: { categorias: Like(`%${categoria}%`) } // busca coincidencias parciales
+    },
+    relations: ['leagues', 'categories'],
+  });
+}
+
+
 
 async getUniqueCategoriesByLeague(aliasLiga: string): Promise<string[]> {
   const tournaments = await this.TournamentsRepository.find({
@@ -51,10 +62,16 @@ async getUniqueCategoriesByLeague(aliasLiga: string): Promise<string[]> {
   const unique = [...new Set(categorias)];
   return unique;
 }
-   
 
-    //modificar todos lo promise any
- 
-  //terminar el crud
-  //y buscar las buenas practicas del backend y ver que las tenga
+
+  async create(data : Partial<Tournaments>): Promise<Tournaments>{
+    return this.TournamentsRepository.save(data)
+   }
+
+   async delete(id : number):Promise<DeleteResult> {
+    return this.TournamentsRepository.delete(id)
+   }
+
+
+   
 }

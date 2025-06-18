@@ -28,13 +28,27 @@ async allTeams(): Promise<Tournaments[]>{
 
 }
 
-@Get(':id')
-async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Tournaments[]>{
-    if (isNaN(id)) {
-        throw new HttpException('El ID proporcionado no es un número válido.', HttpStatus.BAD_REQUEST);
-      }
-    return this.tournamentsService.get(id)
+@Get(':param')
+async findByIdOrLeague(@Param('param') param: string): Promise<Tournaments[] | Tournaments> {
+  // Si es número, buscar por ID
+  if (!isNaN(Number(param))) {
+    const id = Number(param);
+    return this.tournamentsService.get(id);
+  }
+
+  // Si es texto, buscar por alias de liga
+  return this.tournamentsService.getTournamentsByLeague(param);
 }
+
+
+@Get(':liga/:categoria')
+async findByLigaAndCategoria(
+  @Param('liga') liga: string,
+  @Param('categoria') categoria: string,
+): Promise<Tournaments[]> {
+  return this.tournamentsService.getTournamentsByLeagueAndCategory(liga, categoria);
+}
+
 @Auth(Role.ADMIN)
 
 @Post()
@@ -67,10 +81,10 @@ async delete(@Param('id') id :number) : Promise<DeleteResult>{
 }
 
 
-@Get('unique-categories/:alias')
-async getUniqueCategories(@Param('alias') alias: string): Promise<string[]> {
+@Get('unique-categories/:liga')
+async getUniqueCategories(@Param('liga') liga: string): Promise<string[]> {
   try {
-    return await this.tournamentsService.getUniqueCategoriesByLeague(alias);
+    return await this.tournamentsService.getUniqueCategoriesByLeague(liga);
   } catch (error) {
     console.error(error);
     throw new InternalServerErrorException('Error al obtener categorías únicas');
