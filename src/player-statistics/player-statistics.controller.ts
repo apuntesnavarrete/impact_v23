@@ -37,18 +37,20 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Playerstati
       }
     return this.playersStatisticsService.get(id)
 }
-/*
-@Auth(Role.ADMIN)
 
-@Post()
+@Get('tournament/:id')
+async findByTournament(@Param('id', ParseIntPipe) idTournament: number): Promise<Playerstatistics[]> {
+  if (isNaN(idTournament)) {
+    throw new HttpException('El ID del torneo no es válido.', HttpStatus.BAD_REQUEST);
+  }
 
-async create(
-    @Body() teamsData:Partial<Playerstatistics>): Promise<Playerstatistics>{
-
-         
-        return await  this.playersStatisticsService.create(teamsData)
+  try {
+    return await this.playersStatisticsService.getPlayersStadisticsByIdTournament(idTournament);
+  } catch (error) {
+    console.error(error);
+    throw new InternalServerErrorException('Error al obtener estadísticas por torneo');
+  }
 }
-*/
 
 //proteger ruta stadisticas
 @Auth(Role.ADMIN)

@@ -9,6 +9,9 @@ import { PlayersStatisticsController } from './player-statistics.controller';
     TypeOrmModule.forFeature([Playerstatistics])
   ],
   controllers: [PlayersStatisticsController],
-  providers: [PlayersStatisticsService]
+  providers: [PlayersStatisticsService],
+    exports: [PlayersStatisticsService, TypeOrmModule], // 👈 exporta lo necesario
+
 })
 export class PlayerStatisticsModule {}
+

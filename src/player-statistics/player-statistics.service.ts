@@ -52,8 +52,17 @@ async create(data: Partial<Playerstatistics>[]):Promise<Partial<Playerstatistics
     return this.PlayerStatisticsRepository.save(data)
    }
 
-    //modificar todos lo promise any
- 
-  //terminar el crud
-  //y buscar las buenas practicas del backend y ver que las tenga
+   async getPlayersStadisticsByIdTournament(idTournament: number | null = null): Promise<Playerstatistics[]> {
+    if (idTournament === null) return [];
+
+    const statistics = await this.PlayerStatisticsRepository.find({
+      relations: ['matches', 'participants', 'teams', 'matches.tournaments'],
+    });
+
+    // Filtro en memoria porque TypeORM no puede filtrar fácilmente por una relación anidada profunda
+    return statistics.filter(
+      (statistic) => statistic.matches?.tournaments?.id === idTournament
+    );
+  }
+  
 }
