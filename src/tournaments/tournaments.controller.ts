@@ -28,6 +28,16 @@ async allTeams(): Promise<Tournaments[]>{
 
 }
 
+@Get('unique-categories/:liga')
+async getUniqueCategories(@Param('liga') liga: string): Promise<string[]> {
+  try {
+    return await this.tournamentsService.getUniqueCategoriesByLeague(liga);
+  } catch (error) {
+    console.error(error);
+    throw new InternalServerErrorException('Error al obtener categorías únicas');
+  }
+}
+
 @Get(':param')
 async findByIdOrLeague(@Param('param') param: string): Promise<Tournaments[] | Tournaments> {
   // Si es número, buscar por ID
@@ -81,15 +91,7 @@ async delete(@Param('id') id :number) : Promise<DeleteResult>{
 }
 
 
-@Get('unique-categories/:liga')
-async getUniqueCategories(@Param('liga') liga: string): Promise<string[]> {
-  try {
-    return await this.tournamentsService.getUniqueCategoriesByLeague(liga);
-  } catch (error) {
-    console.error(error);
-    throw new InternalServerErrorException('Error al obtener categorías únicas');
-  }
-}
+
 
 
 
