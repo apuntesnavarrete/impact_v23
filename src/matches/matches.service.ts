@@ -25,6 +25,39 @@ return matches
     return this.MatchesRepository.update(id , data)
   }
 
+async findByTournamentId(tournamentId: number): Promise<Matches[]> {
+  return this.MatchesRepository.find({
+    where: {
+      tournaments: {
+        id: tournamentId,
+      },
+    },
+    relations: ['tournaments', 'teamHome', 'teamAway'],
+  });
+}
+
+
+async findByLeague(leagueCode: string): Promise<Matches[]> {
+  return this.MatchesRepository.createQueryBuilder('match')
+    .leftJoinAndSelect('match.tournaments', 'tournament')
+    .leftJoinAndSelect('match.teamHome', 'teamHome')
+    .leftJoinAndSelect('match.teamAway', 'teamAway')
+    .where("SUBSTRING_INDEX(tournament.idName, '-', 1) = :leagueCode", { leagueCode })
+    .getMany();
+}
+
+async findByLeagueAndCategory(league: string, category: string): Promise<Matches[]> {
+  return this.MatchesRepository.createQueryBuilder('match')
+    .leftJoinAndSelect('match.tournaments', 'tournament')
+    .leftJoinAndSelect('match.teamHome', 'teamHome')
+    .leftJoinAndSelect('match.teamAway', 'teamAway')
+    .where(`SUBSTRING_INDEX(tournament.idName, '-', 1) = :league`, { league })
+    .andWhere(`SUBSTRING_INDEX(SUBSTRING_INDEX(tournament.idName, '-', 2), '-', -1) = :category`, { category })
+    .getMany();
+}
+
+
+
 
 async get(id : number):Promise<Matches[]>{
   return this.MatchesRepository.findBy({ id: id });
@@ -38,8 +71,5 @@ async get(id : number):Promise<Matches[]>{
     return this.MatchesRepository.delete(id)
    }
 
-    //modificar todos lo promise any
- 
-  //terminar el crud
-  //y buscar las buenas practicas del backend y ver que las tenga
+    
 }

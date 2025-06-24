@@ -36,6 +36,27 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Matches[]>{
       }
     return this.matchesService.get(id)
 }
+
+  @Get('tournament/:id')
+  getMatchesByTournament(@Param('id') id: string) {
+    return this.matchesService.findByTournamentId(+id);
+  }
+
+
+  @Get('league/:liga')
+getMatchesByLeague(@Param('liga') liga: string) {
+  return this.matchesService.findByLeague(liga);
+}
+
+@Get('league/:league/category/:category')
+getMatchesByLeagueAndCategory(
+  @Param('league') league: string,
+  @Param('category') category: string
+) {
+  return this.matchesService.findByLeagueAndCategory(league, category);
+}
+
+
 @Auth(Role.ADMIN)
 
 @Post()
@@ -77,34 +98,5 @@ prueba(){
 }
 
 
-//
-
-/*
-
- @Post('upload')
-@UseInterceptors(FileInterceptor('file' , {
-
-    storage: diskStorage(
-        {
-            destination: './upload',
-            filename: (_, file, callback) => {
-                callback(null, file.originalname);
-              }}
-    ),
-              fileFilter: (req, file, callback)=>{
-                
-
-                if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
-                    return callback (new Error('invalid format'), false)
-                }
-
-                callback(null,true)
-              }
-} ))
-async uploadFile(@UploadedFile() file: Express.Multer.File) {
-  console.log(file.filename); //logica despues de que se haya subido el archivo
-}
-*/
-//
 
 }
