@@ -37,24 +37,29 @@ async findByTournamentId(tournamentId: number): Promise<Matches[]> {
 }
 
 
-async findByLeague(leagueCode: string): Promise<Matches[]> {
+async findByLeague(leagueAlias: string): Promise<Matches[]> {
   return this.MatchesRepository.createQueryBuilder('match')
     .leftJoinAndSelect('match.tournaments', 'tournament')
+    .leftJoinAndSelect('tournament.leagues', 'league')
     .leftJoinAndSelect('match.teamHome', 'teamHome')
     .leftJoinAndSelect('match.teamAway', 'teamAway')
-    .where("SUBSTRING_INDEX(tournament.idName, '-', 1) = :leagueCode", { leagueCode })
+    .where('league.Alias = :leagueAlias', { leagueAlias })
     .getMany();
 }
 
-async findByLeagueAndCategory(league: string, category: string): Promise<Matches[]> {
+
+async findByLeagueAndCategory(leagueAlias: string, categoryName: string): Promise<Matches[]> {
   return this.MatchesRepository.createQueryBuilder('match')
     .leftJoinAndSelect('match.tournaments', 'tournament')
+    .leftJoinAndSelect('tournament.leagues', 'league')
+    .leftJoinAndSelect('tournament.categories', 'category')
     .leftJoinAndSelect('match.teamHome', 'teamHome')
     .leftJoinAndSelect('match.teamAway', 'teamAway')
-    .where(`SUBSTRING_INDEX(tournament.idName, '-', 1) = :league`, { league })
-    .andWhere(`SUBSTRING_INDEX(SUBSTRING_INDEX(tournament.idName, '-', 2), '-', -1) = :category`, { category })
+    .where('league.Alias = :leagueAlias', { leagueAlias })
+    .andWhere('category.categorias = :categoryName', { categoryName })
     .getMany();
 }
+
 
 
 
