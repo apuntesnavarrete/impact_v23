@@ -38,6 +38,14 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Rosters[]>{
       }
     return this.roustersService.get(id)
 }
+
+
+@Get('tournament/:idtorneo')
+  async getByTournament(@Param('idtorneo') idtorneo: string) {
+    const id = parseInt(idtorneo, 10);
+    return this.roustersService.getByTournamentId(id);
+  }
+
 @Auth(Role.ADMIN)
 
 @Post()
@@ -71,7 +79,6 @@ async delete(@Param('id') id :number) : Promise<DeleteResult>{
  return this.roustersService.delete(id)
 }
 
- //modificar todos lo promise any
 
  @Get('upload')
 prueba(){

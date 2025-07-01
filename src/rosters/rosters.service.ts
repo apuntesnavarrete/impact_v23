@@ -29,6 +29,17 @@ async get(id : number):Promise<Rosters[]>{
   return this.RostersRepository.findBy({ id: id });
 }
 
+async getByTournamentId(idTorneo: number): Promise<Rosters[]> {
+  return this.RostersRepository.find({
+    where: {
+      tournaments: {
+        id: idTorneo,
+      },
+    },
+    relations: ['tournaments', 'participants', 'teams'],
+  });
+}
+
   async create(data : Partial<Rosters>): Promise<Rosters>{
     return this.RostersRepository.save(data)
    }
@@ -37,8 +48,5 @@ async get(id : number):Promise<Rosters[]>{
     return this.RostersRepository.delete(id)
    }
 
-    //modificar todos lo promise any
- 
-  //terminar el crud
-  //y buscar las buenas practicas del backend y ver que las tenga
+   
 }
