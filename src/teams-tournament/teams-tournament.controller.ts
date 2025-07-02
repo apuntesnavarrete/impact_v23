@@ -24,6 +24,13 @@ export class TeamsTournamentController {
   findOne(@Param('id') id: string) {
     return this.teamsTournamentService.findOne(+id);
   }
+
+
+   @Get('tournament/:id')
+  async findByTournament(@Param('id') id: number) {
+    return await this.teamsTournamentService.findByTournamentId(id);
+  }
+
   @Auth(Role.ADMIN)
 
   @Patch(':id')

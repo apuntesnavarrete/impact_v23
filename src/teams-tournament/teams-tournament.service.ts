@@ -40,6 +40,16 @@ export class TeamsTournamentService {
     return `This action returns a #${id} teamsTournament`;
   }
 
+async findByTournamentId(tournamentId: number): Promise<TeamsTournament[]> {
+  return await this.teamsTournamentRepository.find({
+    where: {
+      tournaments: { id: tournamentId }
+    },
+    relations: ['teams', 'participants', 'tournaments'],
+  });
+}
+
+
   async update(id: number, updateTeamsTournamentDto: UpdateTeamsTournamentDto) {
     const data = await this.teamsTournamentRepository.findOne({ where: { id }, relations: ['teams', 'tournaments', 'participants'] });
     
