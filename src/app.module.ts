@@ -24,6 +24,7 @@ import { ChampionsTeamsModule } from './champions-teams/champions-teams.module';
 import { TeamsTournamentModule } from './teams-tournament/teams-tournament.module';
 import { TablageneralModule } from './tablageneral/tablageneral.module';
 import { GoleoModule } from './goleo/goleo.module';
+import { RollModule } from './roll/roll.module';
 
 
 
@@ -81,7 +82,8 @@ import { GoleoModule } from './goleo/goleo.module';
     PlayersStandoutModule,
     TeamsTournamentModule,
     TablageneralModule,
-    GoleoModule
+    GoleoModule,
+    RollModule
      // Agrega esta línea para configurar el módulo de caché
 
   

@@ -10,5 +10,7 @@ import { TeamsTournament } from './entities/teams-tournament.entity';
   ],
   controllers: [TeamsTournamentController],
   providers: [TeamsTournamentService],
+    exports: [TeamsTournamentService],
+
 })
 export class TeamsTournamentModule {}
