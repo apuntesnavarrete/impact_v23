@@ -6,6 +6,8 @@ export class GoleoService {
   const goleadores: { [key: string]: any & { nombre: string } } = datos.reduce((acumulador, registro) => {
     const nombreJugador = registro.participants.name;
     const jugadorId = registro.participants.id;
+    const jugadorIdFoto = registro.participants.Photo;
+
     const equipo = registro.teams.name;
     const equipoLogo = registro.teams.logo;
 
@@ -19,6 +21,7 @@ export class GoleoService {
         equipo,
         equipoLogo,
         nombre: nombreJugador,
+        jugadorIdFoto
       };
     }
 
@@ -37,6 +40,7 @@ GetSumDataPlayerTotal(datos: any[]): any[] {
   for (const registro of datos) {
     const id = registro.participants.id;
     const nombre = registro.participants.name;
+    const jugadorIdFoto = registro.participants.Photo;
 
     if (!jugadores[id]) {
       jugadores[id] = {
@@ -45,7 +49,8 @@ GetSumDataPlayerTotal(datos: any[]): any[] {
         goles: 0,
         asistencias: 0,
         equipo: '',
-        equipoLogo: ''
+        equipoLogo: '',
+        jugadorIdFoto
       };
     }
 
