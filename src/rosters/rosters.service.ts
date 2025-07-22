@@ -48,5 +48,15 @@ async getByTournamentId(idTorneo: number): Promise<Rosters[]> {
     return this.RostersRepository.delete(id)
    }
 
+
+   async getByTournamentAndTeam(tournamentId: number, teamId: number): Promise<Rosters[]> {
+  return this.RostersRepository.find({
+    where: {
+      tournaments: { id: tournamentId },
+      teams: { id: teamId },
+    },
+    relations: ['tournaments', 'participants', 'teams'],
+  });
+}
    
 }

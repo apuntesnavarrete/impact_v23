@@ -46,6 +46,21 @@ async findTeamById(@Param('id' , ParseIntPipe) id : number): Promise<Rosters[]>{
     return this.roustersService.getByTournamentId(id);
   }
 
+
+  @Get('tournament/:tournamentId/team/:teamId')
+async getByTournamentAndTeam(
+  @Param('tournamentId', ParseIntPipe) tournamentId: number,
+  @Param('teamId', ParseIntPipe) teamId: number,
+): Promise<Rosters[]> {
+  try {
+    return await this.roustersService.getByTournamentAndTeam(tournamentId, teamId);
+  } catch (error) {
+    console.error(error);
+    throw new InternalServerErrorException('Error getting rosters by tournament and team');
+  }
+}
+
+
 @Auth(Role.ADMIN)
 
 @Post()
