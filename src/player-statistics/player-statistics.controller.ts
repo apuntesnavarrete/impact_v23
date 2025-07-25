@@ -52,6 +52,12 @@ async findByTournament(@Param('id', ParseIntPipe) idTournament: number): Promise
   }
 }
 
+@Get('partido/:id')
+getStatsByMatch(@Param('id') id: number) {
+  return this.playersStatisticsService.getByMatchId(id);
+}
+
+
 //proteger ruta stadisticas
 @Auth(Role.ADMIN)
 

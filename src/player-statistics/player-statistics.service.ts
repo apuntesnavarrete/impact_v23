@@ -31,6 +31,20 @@ async get(id : number):Promise<Playerstatistics[]>{
   return this.PlayerStatisticsRepository.findBy({ id: id });
 }
 
+
+async getByMatchId(matchId: number): Promise<Playerstatistics[]> {
+  const statistics = await this.PlayerStatisticsRepository.find({
+    relations: ['matches', 'participants', 'teams', 'matches.tournaments'],
+    where: {
+      matches: {
+        id: matchId,
+      },
+    },
+  });
+
+  return statistics;
+}
+
 async create(data: Partial<Playerstatistics>[]):Promise<Partial<Playerstatistics>[]> {
  
   const createdRecords: Playerstatistics[] = [];
