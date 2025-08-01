@@ -36,5 +36,33 @@ async getGoleadoresByTorneo(@Param('idTorneo', ParseIntPipe) idTorneo: number) {
 
   return this.goleoService.GetSumDataPlayerWithTeam(datos as any);
 }
+
+
+@Get('goleador-mes/:anio/:mes')
+async getGoleadorDelMes(
+  @Param('anio', ParseIntPipe) anio: number,
+  @Param('mes', ParseIntPipe) mes: number
+) {
+  const datos = await this.playerStatsRepo.find({
+    relations: ['participants', 'teams', 'matches'],
+  });
+
+  return this.goleoService.getGoleadorDelMes(datos as any, mes, anio);
+}
+
+@Get('goleadores-mes/:anio/:mes/liga/:liga')
+async getTopGoleadoresDelMesPorLiga(
+  @Param('anio', ParseIntPipe) anio: number,
+  @Param('mes', ParseIntPipe) mes: number,
+  @Param('liga') liga: string
+) {
+  const datos = await this.playerStatsRepo.find({
+    relations: ['participants', 'matches', 'matches.tournaments'],
+  });
+
+  return this.goleoService.getTopGoleadoresDelMesPorLiga(datos as any, mes, anio, liga);
+}
+
+
 }
 

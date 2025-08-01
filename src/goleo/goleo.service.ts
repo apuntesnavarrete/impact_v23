@@ -62,5 +62,88 @@ GetSumDataPlayerTotal(datos: any[]): any[] {
 }
 
 
+getGoleadorDelMes(datos: any[], mes: number, anio: number): any | null {
+  const jugadores: { [key: number]: any } = {};
+
+  for (const registro of datos) {
+    const fecha = new Date(registro.matches.date);
+    const mesRegistro = fecha.getMonth() + 1;
+    const anioRegistro = fecha.getFullYear();
+
+    if (mesRegistro === mes && anioRegistro === anio) {
+      const id = registro.participants.id;
+      const nombre = registro.participants.name;
+      const foto = registro.participants.Photo;
+
+      if (!jugadores[id]) {
+        jugadores[id] = {
+          id,
+          nombre,
+          foto,
+          goles: 0,
+          asistencias: 0,
+        };
+      }
+
+      jugadores[id].goles += registro.annotations;
+      jugadores[id].asistencias += Number(registro.attendance);
+    }
+  }
+
+  const lista = Object.values(jugadores);
+  if (lista.length === 0) return null;
+
+   return lista
+    .sort((a, b) => b.goles - a.goles) // Ordenar por goles descendente
+    .slice(0, 20); // Tomar los primeros 20
 }
+  
+getTopGoleadoresDelMesPorLiga(
+  datos: any[],
+  mes: number,
+  anio: number,
+  liga: string
+): any[] {
+  const jugadores: { [key: number]: any } = {};
+
+  for (const registro of datos) {
+    const fecha = new Date(registro.matches.date);
+    const mesRegistro = fecha.getMonth() + 1;
+    const anioRegistro = fecha.getFullYear();
+    const idName = registro.matches.tournaments.idName;
+
+    const ligaTorneo = idName.split('-')[0]; // obtiene "ED" o "PRO"
+
+    if (mesRegistro === mes && anioRegistro === anio && ligaTorneo === liga) {
+      const id = registro.participants.id;
+      const nombre = registro.participants.name;
+      const foto = registro.participants.Photo;
+
+      if (!jugadores[id]) {
+        jugadores[id] = {
+          id,
+          nombre,
+          foto,
+          goles: 0,
+          asistencias: 0,
+        };
+      }
+
+      jugadores[id].goles += registro.annotations;
+      jugadores[id].asistencias += Number(registro.attendance);
+    }
+  }
+
+  const lista = Object.values(jugadores);
+  return lista
+    .sort((a, b) => b.goles - a.goles)
+    .slice(0, 20);
+}
+
+
+}
+
+
+
+
 
