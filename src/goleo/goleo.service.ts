@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class GoleoService {
-  GetSumDataPlayerWithTeam(datos: any[]): any[] {
+ GetSumDataPlayerWithTeam(datos: any[]): any[] {
   const goleadores: { [key: string]: any & { nombre: string } } = datos.reduce((acumulador, registro) => {
     const nombreJugador = registro.participants.name;
     const jugadorId = registro.participants.id;
@@ -31,7 +31,7 @@ export class GoleoService {
     return acumulador;
   }, {} as { [key: string]: any & { nombre: string } });
 
-  return Object.values(goleadores).sort((a, b) => b.goles - a.goles);
+  return Object.values(goleadores); // no sorting here
 }
 
 GetSumDataPlayerTotal(datos: any[]): any[] {
@@ -58,11 +58,12 @@ GetSumDataPlayerTotal(datos: any[]): any[] {
     jugadores[id].asistencias += Number(registro.attendance);
   }
 
-  return Object.values(jugadores).sort((a, b) => b.goles - a.goles);
+  // Return without sorting
+  return Object.values(jugadores);
 }
 
 
-getGoleadorDelMes(datos: any[], mes: number, anio: number): any | null {
+getdataDelMes(datos: any[], mes: number, anio: number): any[] {
   const jugadores: { [key: number]: any } = {};
 
   for (const registro of datos) {
@@ -90,15 +91,10 @@ getGoleadorDelMes(datos: any[], mes: number, anio: number): any | null {
     }
   }
 
-  const lista = Object.values(jugadores);
-  if (lista.length === 0) return null;
-
-   return lista
-    .sort((a, b) => b.goles - a.goles) // Ordenar por goles descendente
-    .slice(0, 20); // Tomar los primeros 20
+  return Object.values(jugadores);
 }
   
-getTopGoleadoresDelMesPorLiga(
+getdataDelMesPorLiga(
   datos: any[],
   mes: number,
   anio: number,
@@ -112,7 +108,7 @@ getTopGoleadoresDelMesPorLiga(
     const anioRegistro = fecha.getFullYear();
     const idName = registro.matches.tournaments.idName;
 
-    const ligaTorneo = idName.split('-')[0]; // obtiene "ED" o "PRO"
+    const ligaTorneo = idName.split('-')[0]; // "ED" or "PRO"
 
     if (mesRegistro === mes && anioRegistro === anio && ligaTorneo === liga) {
       const id = registro.participants.id;
@@ -134,11 +130,9 @@ getTopGoleadoresDelMesPorLiga(
     }
   }
 
-  const lista = Object.values(jugadores);
-  return lista
-    .sort((a, b) => b.goles - a.goles)
-    .slice(0, 20);
+  return Object.values(jugadores); // no sorting here
 }
+
 
 
 }
